@@ -21,4 +21,6 @@ public partial class User : BaseEntity
     public virtual ICollection<FoodMenuMeasure> FoodMenuMeasures { get; set; } = new List<FoodMenuMeasure>();
 
     public virtual ICollection<MealType> MealTypes { get; set; } = new List<MealType>();
+
+    public virtual ICollection<WaterMeasure> WaterMeasures { get; set; } = new List<WaterMeasure>();
 }

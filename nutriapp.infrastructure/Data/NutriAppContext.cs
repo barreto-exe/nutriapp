@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
 using nutriapp.core.Entities;
 
 namespace nutriapp.infrastructure.Data;
@@ -268,6 +264,25 @@ public partial class NutriAppContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<WaterMeasure>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__WaterMea__3214EC07C392C313");
+
+            entity.ToTable("WaterMeasure");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.WaterMeasures)
+                .HasForeignKey(d => d.MeasureType)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__WaterMeas__Measu__6E01572D");
+
+            entity.HasOne(d => d.UserNavigation).WithMany(p => p.WaterMeasures)
+                .HasForeignKey(d => d.User)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__WaterMeasu__User__6D0D32F4");
         });
 
         OnModelCreatingPartial(modelBuilder);
