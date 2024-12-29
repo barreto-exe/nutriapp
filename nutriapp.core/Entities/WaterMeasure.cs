@@ -1,6 +1,6 @@
 ﻿namespace nutriapp.core.Entities;
 
-public partial class WaterMeasure
+public partial class WaterMeasure : BaseEntity
 {
     public int Id { get; set; }
 
