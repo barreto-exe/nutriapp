@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using nutriapp.business.AutoMapper;
+using nutriapp.business.Base;
 using nutriapp.business.Interfaces;
+using nutriapp.business.Services;
 using nutriapp.business.Users;
 using nutriapp.infrastructure.Data;
 using nutriapp.infrastructure.Interfaces;
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<NutriAppContext>(options =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IWaterMeasureService, WaterMeasureService>();
 
 //Automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));

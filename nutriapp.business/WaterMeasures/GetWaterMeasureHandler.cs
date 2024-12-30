@@ -1,29 +1,24 @@
 ﻿using AutoMapper;
 using MediatR;
+using nutriapp.business.Interfaces;
 using nutriapp.infrastructure.Interfaces;
 
 namespace nutriapp.business.WaterMeasures;
 
 public class GetWaterMeasureHandler : IRequestHandler<GetWaterMeasureCommand, GetWaterMeasureResponse>
 {
-    private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
+    private readonly IWaterMeasureService waterMeasureService;
 
-    public GetWaterMeasureHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetWaterMeasureHandler(IMapper mapper, IWaterMeasureService waterMeasureService)
     {
-        this.unitOfWork = unitOfWork;
         this.mapper = mapper;
+        this.waterMeasureService = waterMeasureService;
     }
 
     public async Task<GetWaterMeasureResponse> Handle(GetWaterMeasureCommand request, CancellationToken cancellationToken)
     {
-        var waterMeasure = unitOfWork.WaterMeasureRepository
-            .GetAllIncluding(x => x.UserNavigation)
-            .Where(x => x.UserNavigation.Id == request.UserId)
-            .OrderByDescending(x => x.UpdatedDate)
-            .Take(1)
-            .FirstOrDefault();
-
+        var waterMeasure = await waterMeasureService.GetWaterMeasureByUserIdAsync(request.UserId);
         return mapper.Map<GetWaterMeasureResponse>(waterMeasure);
     }
 }

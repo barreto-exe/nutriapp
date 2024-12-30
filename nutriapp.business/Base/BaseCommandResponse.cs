@@ -1,4 +1,4 @@
-﻿namespace nutriapp.business;
+﻿namespace nutriapp.business.Base;
 
 public class BaseCommandResponse
 {

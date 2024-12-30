@@ -1,8 +1,9 @@
-﻿using nutriapp.business.Interfaces;
+﻿using nutriapp.business.Base;
+using nutriapp.business.Interfaces;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 
-namespace nutriapp.business.Users;
+namespace nutriapp.business.Services;
 
 public class UserService : IUserService
 {
@@ -13,7 +14,7 @@ public class UserService : IUserService
         this.unitOfWork = unitOfWork;
     }
 
-    public async Task<User> Create(User user)
+    public async Task<User> CreateAsync(User user)
     {
         user.CreatedDate = DateTime.Now;
 
@@ -23,14 +24,14 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task<User> GetByEmail(string email)
+    public async Task<User> GetByEmailAsync(string email)
     {
         var users = unitOfWork.UserRepository.GetAll();
         var user = users.Where(x => x.Email == email).FirstOrDefault();
         return user;
     }
 
-    public async Task<User> GetById(int id)
+    public async Task<User> GetByIdAsync(int id)
     {
         var user = await unitOfWork.UserRepository.GetById(id);
         return user;

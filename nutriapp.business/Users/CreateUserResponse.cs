@@ -1,4 +1,6 @@
-﻿namespace nutriapp.business.Users;
+﻿using nutriapp.business.Base;
+
+namespace nutriapp.business.Users;
 
 public class CreateUserResponse : BaseCommandResponse
 {

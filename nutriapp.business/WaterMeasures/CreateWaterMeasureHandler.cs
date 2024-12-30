@@ -10,18 +10,20 @@ public class CreateWaterMeasureHandler : IRequestHandler<CreateWaterMeasureComma
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IUserService userService;
+    private readonly IWaterMeasureService waterMeasureService;
     private readonly IMapper mapper;
 
-    public CreateWaterMeasureHandler(IUnitOfWork unitOfWork, IUserService userService, IMapper mapper)
+    public CreateWaterMeasureHandler(IUnitOfWork unitOfWork, IUserService userService, IWaterMeasureService waterMeasureService, IMapper mapper)
     {
         this.unitOfWork = unitOfWork;
         this.userService = userService;
+        this.waterMeasureService = waterMeasureService;
         this.mapper = mapper;
     }
 
     public async Task<CreateWaterMeasureResponse> Handle(CreateWaterMeasureCommand request, CancellationToken cancellationToken)
     {
-        var user = await userService.GetById(request.UserId);
+        var user = await userService.GetByIdAsync(request.UserId);
         var measureType = await unitOfWork.MeasureTypeRepository.GetById(request.MeasureType);
 
         if (user == null)
@@ -52,8 +54,7 @@ public class CreateWaterMeasureHandler : IRequestHandler<CreateWaterMeasureComma
 
         var waterMeasure = mapper.Map<WaterMeasure>(request);
 
-        await unitOfWork.WaterMeasureRepository.Add(waterMeasure);
-        await unitOfWork.SaveChangesAsync();
+        await waterMeasureService.CreateAsync(waterMeasure);
 
         return new CreateWaterMeasureResponse();
     }

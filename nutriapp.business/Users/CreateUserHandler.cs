@@ -21,7 +21,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
 
     public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await userService.GetByEmail(request.Email);
+        var user = await userService.GetByEmailAsync(request.Email);
 
         if (user != null)
         {
@@ -34,7 +34,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
 
         user = mapper.Map<User>(request);
 
-        await userService.Create(user);
+        await userService.CreateAsync(user);
 
         return new CreateUserResponse
         {
