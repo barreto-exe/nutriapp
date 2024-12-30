@@ -4,12 +4,8 @@ using nutriapp.business.Users;
 
 namespace nutriapp.api.Controllers;
 
-public class UsersController : MyControllerBase
+public class UsersController(IMediator mediator) : MyControllerBase(mediator)
 {
-    public UsersController(IMediator mediator) : base(mediator)
-    {
-    }
-
     [HttpPost]
     public async Task<IActionResult> CreateUser(CreateUserCommand command)
     {
@@ -22,5 +18,4 @@ public class UsersController : MyControllerBase
 
         return Ok(response);
     }
-
 }
