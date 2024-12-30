@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using nutriapp.business.Interfaces;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
@@ -9,11 +10,13 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IUserService userService;
+    private readonly IMapper mapper;
 
-    public CreateUserHandler(IUnitOfWork unitOfWork, IUserService userService)
+    public CreateUserHandler(IUnitOfWork unitOfWork, IUserService userService, IMapper mapper)
     {
         this.unitOfWork = unitOfWork;
         this.userService = userService;
+        this.mapper = mapper;
     }
 
     public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -29,20 +32,15 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
             };
         }
 
-        user = new User
-        {
-            Email = request.Email,
-            Password = request.Password,
-            Name = request.Name,
-            Lastname = request.LastName
-        };
+        user = mapper.Map<User>(request);
 
-        var createdUser = await userService.Create(user);
+        await userService.Create(user);
+
         return new CreateUserResponse
         {
             Success = true,
             Message = "OK",
-            UserId = createdUser.Id
+            UserId = user.Id
         };
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using nutriapp.business.AutoMapper;
 using nutriapp.business.Interfaces;
 using nutriapp.business.Users;
 using nutriapp.infrastructure.Data;
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<NutriAppContext>(options =>
 builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IUserService, UserService>();
+
+//Automapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 //MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateUserHandler>());
