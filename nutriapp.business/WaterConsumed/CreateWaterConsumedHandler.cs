@@ -57,17 +57,16 @@ public class CreateWaterConsumedHandler : IRequestHandler<CreateWaterConsumedCom
         var waterConsumed = mapper.Map<WaterConsumedEntity>(request);
         await waterConsumedService.CreateWaterConsumedAsync(waterConsumed);
 
-        //Calculate liters consumed today (Convert all to liters with ConversionFactor)
         double litersConsumedToday = waterConsumedService
             .GetWaterConsumedToday(request.User)
             .ToList()
-            .Sum(x => x.Quantity * x.MeasureTypeNavigation.ConversionFactor);
+            .Sum(x => x.Quantity / x.MeasureTypeNavigation.ConversionFactor);
 
-        var litersGoal = waterGoal!.Quantity * waterGoal.MeasureTypeNavigation.ConversionFactor;
+        var litersGoal = waterGoal!.Quantity / waterGoal.MeasureTypeNavigation.ConversionFactor;
 
         return new CreateWaterConsumedResponse()
         {
-            LitersLeft = litersGoal - litersConsumedToday
+            LitersLeft = Math.Round(litersGoal - litersConsumedToday, 2),
         };
     }
 }
