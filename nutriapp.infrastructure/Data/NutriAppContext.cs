@@ -77,6 +77,146 @@ public partial class NutriAppContext : DbContext
                 .HasForeignKey(d => d.FoodType)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__food__FoodType__4AB81AF0");
+
+            entity.HasData(
+                //Lácteos
+                new Food { Id = 1, Name = "Leche Líquida descremada", FoodType = 1 },
+                new Food { Id = 2, Name = "Leche en polvo descremada", FoodType = 1 },
+                new Food { Id = 3, Name = "Kefir", FoodType = 1 },
+                new Food { Id = 4, Name = "Yogurt griego", FoodType = 1 },
+
+                //Proteínas magras
+                new Food { Id = 5, Name = "Carne vacuna", FoodType = 2 },
+                new Food { Id = 6, Name = "Lomito desgrasado", FoodType = 2 },
+                new Food { Id = 7, Name = "Pollo", FoodType = 2 },
+                new Food { Id = 8, Name = "Pavo", FoodType = 2 },
+                new Food { Id = 9, Name = "Gallina", FoodType = 2 },
+                new Food { Id = 10, Name = "Pescado fresco", FoodType = 2 },
+                new Food { Id = 11, Name = "Cangrejo", FoodType = 2 },
+                new Food { Id = 12, Name = "Camarones", FoodType = 2 },
+                new Food { Id = 13, Name = "Sardinas", FoodType = 2 },
+                new Food { Id = 14, Name = "Queso bajo en grasa", FoodType = 2 },
+                new Food { Id = 15, Name = "Requesón", FoodType = 2 },
+                new Food { Id = 16, Name = "Queso Parmesano", FoodType = 2 },
+                new Food { Id = 17, Name = "Clara de huevo", FoodType = 2 },
+
+                //Proteína medianamente grasa
+                new Food { Id = 18, Name = "Carne molida", FoodType = 3 },
+                new Food { Id = 19, Name = "Cordero", FoodType = 3 },
+                new Food { Id = 20, Name = "Costilla", FoodType = 3 },
+                new Food { Id = 21, Name = "Lomo", FoodType = 3 },
+                new Food { Id = 22, Name = "Queso Mozzarella", FoodType = 3 },
+                new Food { Id = 23, Name = "Jamón de pavo", FoodType = 3 },
+                new Food { Id = 24, Name = "Jamón de pollo", FoodType = 3 },
+                new Food { Id = 25, Name = "Huevo", FoodType = 3 },
+
+                //Proteínas altas en grasa
+                new Food { Id = 26, Name = "Jamón de pierna", FoodType = 4 },
+                new Food { Id = 27, Name = "Jamón de espalda", FoodType = 4 },
+                new Food { Id = 28, Name = "Mortadela", FoodType = 4 },
+                new Food { Id = 29, Name = "Tocino", FoodType = 4 },
+                new Food { Id = 30, Name = "Queso Amarillo", FoodType = 4 },
+
+                //Frutas
+                new Food { Id = 31, Name = "Cambur manzano", FoodType = 5 },
+                new Food { Id = 32, Name = "Cambur topocho", FoodType = 5 },
+                new Food { Id = 33, Name = "Cambur guineo", FoodType = 5 },
+                new Food { Id = 34, Name = "Ciruela fresca", FoodType = 5 },
+                new Food { Id = 35, Name = "Ciruela pasa", FoodType = 5 },
+                new Food { Id = 36, Name = "Durazno", FoodType = 5 },
+                new Food { Id = 37, Name = "Fresas", FoodType = 5 },
+                new Food { Id = 38, Name = "Guayaba", FoodType = 5 },
+                new Food { Id = 39, Name = "Guanábana", FoodType = 5 },
+                new Food { Id = 40, Name = "Limón", FoodType = 5 },
+                new Food { Id = 41, Name = "Lechosa", FoodType = 5 },
+                new Food { Id = 42, Name = "Melón", FoodType = 5 },
+                new Food { Id = 43, Name = "Mandarina", FoodType = 5 },
+                new Food { Id = 44, Name = "Mango", FoodType = 5 },
+                new Food { Id = 45, Name = "Mamón", FoodType = 5 },
+                new Food { Id = 46, Name = "Melocotón", FoodType = 5 },
+                new Food { Id = 47, Name = "Mora", FoodType = 5 },
+                new Food { Id = 48, Name = "Naranja", FoodType = 5 },
+                new Food { Id = 49, Name = "Jugo de Naranja", FoodType = 5 },
+                new Food { Id = 50, Name = "Patilla", FoodType = 5 },
+                new Food { Id = 51, Name = "Parchita", FoodType = 5 },
+                new Food { Id = 52, Name = "Pera", FoodType = 5 },
+                new Food { Id = 53, Name = "Manzana", FoodType = 5 },
+                new Food { Id = 54, Name = "Piña", FoodType = 5 },
+                new Food { Id = 55, Name = "Tamarindo", FoodType = 5 },
+                new Food { Id = 56, Name = "Uva", FoodType = 5 },
+                new Food { Id = 57, Name = "Jugo de frutas", FoodType = 5 },
+
+                //Vegetales Tipo A
+                new Food { Id = 58, Name = "Acelga", FoodType = 6 },
+                new Food { Id = 59, Name = "Ajo porro", FoodType = 6 },
+                new Food { Id = 60, Name = "Apio españa", FoodType = 6 },
+                new Food { Id = 61, Name = "Berenjena", FoodType = 6 },
+                new Food { Id = 62, Name = "Brócoli", FoodType = 6 },
+                new Food { Id = 63, Name = "Calabacin", FoodType = 6 },
+                new Food { Id = 64, Name = "Champiñón", FoodType = 6 },
+                new Food { Id = 65, Name = "Cebollin", FoodType = 6 },
+                new Food { Id = 66, Name = "Coliflor", FoodType = 6 },
+                new Food { Id = 67, Name = "Espinaca", FoodType = 6 },
+                new Food { Id = 68, Name = "Lechuga", FoodType = 6 },
+                new Food { Id = 69, Name = "Pepino", FoodType = 6 },
+                new Food { Id = 70, Name = "Perejil", FoodType = 6 },
+                new Food { Id = 71, Name = "Pimentón", FoodType = 6 },
+                new Food { Id = 72, Name = "Repollo", FoodType = 6 },
+                new Food { Id = 73, Name = "Tomate", FoodType = 6 },
+
+                //Vegetales Tipo B
+                new Food { Id = 74, Name = "Auyama", FoodType = 7 },
+                new Food { Id = 75, Name = "Cebolla", FoodType = 7 },
+                new Food { Id = 76, Name = "Remolacha", FoodType = 7 },
+                new Food { Id = 77, Name = "Vainitas", FoodType = 7 },
+                new Food { Id = 78, Name = "Zanahoria", FoodType = 7 },
+
+                //Carbohidratos
+                new Food { Id = 79, Name = "Arepa", FoodType = 8 },
+                new Food { Id = 80, Name = "Bollo", FoodType = 8 },
+                new Food { Id = 81, Name = "Pan de Sándwich", FoodType = 8 },
+                new Food { Id = 82, Name = "Pan árabe", FoodType = 8 },
+                new Food { Id = 83, Name = "Casabe", FoodType = 8 },
+                new Food { Id = 84, Name = "Avena", FoodType = 8 },
+                new Food { Id = 85, Name = "Harina de trigo", FoodType = 8 },
+                new Food { Id = 86, Name = "Quinoa", FoodType = 8 },
+                new Food { Id = 87, Name = "Polenta", FoodType = 8 },
+                new Food { Id = 88, Name = "Cuscus", FoodType = 8 },
+                new Food { Id = 89, Name = "Cotufas", FoodType = 8 },
+                new Food { Id = 90, Name = "Harina de arroz", FoodType = 8 },
+                new Food { Id = 91, Name = "Harina de avena", FoodType = 8 },
+                new Food { Id = 92, Name = "Harina de fororo", FoodType = 8 },
+                new Food { Id = 93, Name = "Pasta cocida", FoodType = 8 },
+                new Food { Id = 94, Name = "Arroz blanco", FoodType = 8 },
+                new Food { Id = 95, Name = "Arroz integral cocido", FoodType = 8 },
+                new Food { Id = 96, Name = "Yuca", FoodType = 8 },
+                new Food { Id = 97, Name = "Ocumo", FoodType = 8 },
+                new Food { Id = 98, Name = "Name", FoodType = 8 },
+                new Food { Id = 99, Name = "Apio", FoodType = 8 },
+                new Food { Id = 100, Name = "Batata", FoodType = 8 },
+                new Food { Id = 101, Name = "Plátano", FoodType = 8 },
+                new Food { Id = 102, Name = "Papa cocida", FoodType = 8 },
+                new Food { Id = 103, Name = "Panqueca", FoodType = 8 },
+                new Food { Id = 104, Name = "Granos", FoodType = 8 },
+                new Food { Id = 105, Name = "Maíz Mazorca", FoodType = 8 },
+                new Food { Id = 106, Name = "Galletas de soda", FoodType = 8 },
+                new Food { Id = 107, Name = "Belvita Kraker", FoodType = 8 },
+
+                //Grasas Poli
+                new Food { Id = 108, Name = "Mayonesa", FoodType = 9 },
+                new Food { Id = 109, Name = "Queso crema", FoodType = 9 },
+                new Food { Id = 110, Name = "Tahini", FoodType = 9 },
+
+                //Grasas mono
+                new Food { Id = 111, Name = "Aguacate", FoodType = 10 },
+                new Food { Id = 112, Name = "Aceite de oliva", FoodType = 10 },
+                new Food { Id = 113, Name = "Mantequilla de mani", FoodType = 10 },
+                new Food { Id = 114, Name = "Mantequilla de almendra", FoodType = 10 },
+                new Food { Id = 115, Name = "Mantequilla de cajú", FoodType = 10 },
+                new Food { Id = 116, Name = "Almendra", FoodType = 10 },
+                new Food { Id = 117, Name = "Maní", FoodType = 10 },
+                new Food { Id = 118, Name = "Pecanas", FoodType = 10 }
+            );
         });
 
         modelBuilder.Entity<FoodAtFridge>(entity =>
@@ -197,6 +337,19 @@ public partial class NutriAppContext : DbContext
                 .HasForeignKey(d => d.FoodTypeGroup)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__foodtype__FoodTy__4E88ABD4");
+
+            entity.HasData(
+                new FoodType { Id = 1, Name = "Lácteos", FoodTypeGroup = 1 },
+                new FoodType { Id = 2, Name = "Proteínas magras", FoodTypeGroup = 2 },
+                new FoodType { Id = 3, Name = "Proteína medianamente grasa", FoodTypeGroup = 2 },
+                new FoodType { Id = 4, Name = "Proteínas altas en grasa", FoodTypeGroup = 2 },
+                new FoodType { Id = 5, Name = "Frutas", FoodTypeGroup = 3 },
+                new FoodType { Id = 6, Name = "Vegetales Tipo A", FoodTypeGroup = 4 },
+                new FoodType { Id = 7, Name = "Vegetales Tipo B", FoodTypeGroup = 4 },
+                new FoodType { Id = 8, Name = "Carbohidratos", FoodTypeGroup = 5 },
+                new FoodType { Id = 9, Name = "Grasas Poli", FoodTypeGroup = 6 },
+                new FoodType { Id = 10, Name = "Grasas mono", FoodTypeGroup = 6 }
+            );
         });
 
         modelBuilder.Entity<FoodTypeGroup>(entity =>
@@ -208,6 +361,15 @@ public partial class NutriAppContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+
+            entity.HasData(
+                new FoodTypeGroup { Id = 1, Name = "Lácteos" },
+                new FoodTypeGroup { Id = 2, Name = "Proteínas" },
+                new FoodTypeGroup { Id = 3, Name = "Frutas" },
+                new FoodTypeGroup { Id = 4, Name = "Vegetales" },
+                new FoodTypeGroup { Id = 5, Name = "Carbohidratos" },
+                new FoodTypeGroup { Id = 6, Name = "Grasas" }
+            );
         });
 
         modelBuilder.Entity<GroupUnitMenu>(entity =>
