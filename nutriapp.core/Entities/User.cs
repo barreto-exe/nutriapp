@@ -24,5 +24,7 @@ public partial class User : BaseEntity
 
     public virtual ICollection<WaterConsumed> WaterConsumed { get; set; } = new List<WaterConsumed>();
 
+    public virtual ICollection<UnitMenu> UnitMenus { get; set; } = new List<UnitMenu>();
+
     public virtual ICollection<WaterMeasure> WaterMeasures { get; set; } = new List<WaterMeasure>();
 }

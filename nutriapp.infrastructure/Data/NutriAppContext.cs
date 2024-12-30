@@ -454,6 +454,11 @@ public partial class NutriAppContext : DbContext
                 .HasForeignKey(d => d.FoodType)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__unitmenu__FoodTy__45F365D3");
+
+            entity.HasOne(d => d.UserNavigation).WithMany(p => p.UnitMenus)
+                .HasForeignKey(d => d.User)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__UnitMenu__User__06CD04F7");
         });
 
         modelBuilder.Entity<User>(entity =>
