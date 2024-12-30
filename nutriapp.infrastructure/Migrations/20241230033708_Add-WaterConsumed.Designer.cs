@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using nutriapp.infrastructure.Data;
 
@@ -11,9 +12,11 @@ using nutriapp.infrastructure.Data;
 namespace nutriapp.infrastructure.Migrations
 {
     [DbContext(typeof(NutriAppContext))]
-    partial class NutriAppContextModelSnapshot : ModelSnapshot
+    [Migration("20241230033708_Add-WaterConsumed")]
+    partial class AddWaterConsumed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

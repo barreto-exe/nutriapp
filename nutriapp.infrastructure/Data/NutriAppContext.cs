@@ -35,6 +35,8 @@ public partial class NutriAppContext : DbContext
     public virtual DbSet<UnitMenu> UnitMenus { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<WaterConsumed> WaterConsumed { get; set; }
+    public virtual DbSet<WaterMeasure> WaterMeasures { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -263,7 +265,28 @@ public partial class NutriAppContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasDefaultValueSql("(getdate())");
+        });
+
+        modelBuilder.Entity<WaterConsumed>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__WaterCon__3214EC07E8C2D1E2");
+
+            entity.ToTable("WaterConsumed");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.WaterConsumed)
+                .HasForeignKey(d => d.MeasureType)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__WaterCons__Measu__74AE54BC");
+
+            entity.HasOne(d => d.UserNavigation).WithMany(p => p.WaterConsumed)
+                .HasForeignKey(d => d.User)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__WaterConsu__User__75A278F5");
         });
 
         modelBuilder.Entity<WaterMeasure>(entity =>
@@ -273,6 +296,7 @@ public partial class NutriAppContext : DbContext
             entity.ToTable("WaterMeasure");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.WaterMeasures)
                 .HasForeignKey(d => d.MeasureType)

@@ -1,6 +1,6 @@
 ﻿namespace nutriapp.core.Entities;
 
-public partial class WaterMeasure : BaseEntity
+public partial class WaterConsumed
 {
     public int Id { get; set; }
 
@@ -10,7 +10,7 @@ public partial class WaterMeasure : BaseEntity
 
     public int MeasureType { get; set; }
 
-    public DateTime UpdatedDate { get; set; }
+    public DateTime CreatedDate { get; set; }
 
     public virtual MeasureType MeasureTypeNavigation { get; set; } = null!;
 

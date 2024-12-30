@@ -15,6 +15,8 @@ public class UserService : IUserService
 
     public async Task<User> Create(User user)
     {
+        user.CreatedDate = DateTime.Now;
+
         await unitOfWork.UserRepository.Add(user);
         await unitOfWork.SaveChangesAsync();
 
