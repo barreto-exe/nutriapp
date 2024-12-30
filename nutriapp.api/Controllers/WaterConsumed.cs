@@ -18,4 +18,17 @@ public class WaterConsumed(IMediator mediator) : MyControllerBase(mediator)
 
         return Ok(response);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetWaterConsumed(int userId)
+    {
+        var response = await mediator.Send(new GetWaterConsumedCommand { User = userId });
+
+        if (response == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(response);
+    }
 }
