@@ -20,6 +20,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\nutriapp.core\nutriapp.core.csproj" />
+		<ProjectReference Include="..\nutriapp.business\nutriapp.business.csproj" />
 		<ProjectReference Include="..\nutriapp.infrastructure\nutriapp.infrastructure.csproj" />
 	</ItemGroup>
 

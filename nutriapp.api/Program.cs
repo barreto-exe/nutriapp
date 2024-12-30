@@ -1,6 +1,11 @@
+using nutriapp.business.Users;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateUserHandler>());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
