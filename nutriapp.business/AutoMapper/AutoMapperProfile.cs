@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using nutriapp.business.MealTypes;
 using nutriapp.business.Users;
 using nutriapp.business.WaterConsumed;
 using nutriapp.business.WaterMeasures;
@@ -14,7 +15,10 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateUserCommand, User>();
         CreateMap<CreateWaterMeasureCommand, WaterMeasure>();
         CreateMap<CreateWaterConsumedCommand, WaterConsumedEntity>();
+        CreateMap<CreateMealTypeCommand, MealType>();
 
         CreateMap<WaterMeasure, GetWaterMeasureResponse>();
+
+        CreateMap<MealType, models.MealType>();
     }
 }

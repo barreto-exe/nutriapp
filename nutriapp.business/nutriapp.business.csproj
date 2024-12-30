@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\nutriapp.infrastructure\nutriapp.infrastructure.csproj" />
+    <ProjectReference Include="..\nutriapp.models\nutriapp.models.csproj" />
   </ItemGroup>
 
 </Project>

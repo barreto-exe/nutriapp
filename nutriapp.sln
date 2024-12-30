@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nutriapp.infrastructure", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nutriapp.business", "nutriapp.business\nutriapp.business.csproj", "{1C6CAC75-A844-47F5-98DB-9C8D10E89AB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nutriapp.models", "nutriapp.models\nutriapp.models.csproj", "{E46C87CB-F2E6-45D4-BAE3-5342F5F1D941}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{1C6CAC75-A844-47F5-98DB-9C8D10E89AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C6CAC75-A844-47F5-98DB-9C8D10E89AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C6CAC75-A844-47F5-98DB-9C8D10E89AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E46C87CB-F2E6-45D4-BAE3-5342F5F1D941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E46C87CB-F2E6-45D4-BAE3-5342F5F1D941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E46C87CB-F2E6-45D4-BAE3-5342F5F1D941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E46C87CB-F2E6-45D4-BAE3-5342F5F1D941}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
