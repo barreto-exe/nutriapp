@@ -19,6 +19,7 @@ public class UnitOfWork : IUnitOfWork
     private readonly IRepository<UnitMenu> unitMenuRepository;
     private readonly IRepository<User> userRepository;
     private readonly IRepository<WaterMeasure> waterMeasureRepository;
+    private readonly IRepository<WaterConsumed> waterConsumedRepository;
 
     public UnitOfWork(NutriAppContext context)
     {
@@ -37,6 +38,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<UnitMenu> UnitMenuRepository => unitMenuRepository ?? new BaseRepository<UnitMenu>(context);
     public IRepository<User> UserRepository => userRepository ?? new BaseRepository<User>(context);
     public IRepository<WaterMeasure> WaterMeasureRepository => waterMeasureRepository ?? new BaseRepository<WaterMeasure>(context);
+    public IRepository<WaterConsumed> WaterConsumedRepository => waterConsumedRepository ?? new BaseRepository<WaterConsumed>(context);
 
     public void Dispose()
     {

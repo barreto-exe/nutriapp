@@ -16,6 +16,7 @@ public interface IUnitOfWork : IDisposable
     IRepository<UnitMenu> UnitMenuRepository { get; }
     IRepository<User> UserRepository { get; }
     IRepository<WaterMeasure> WaterMeasureRepository { get; }
+    IRepository<WaterConsumed> WaterConsumedRepository { get; }
 
     void SaveChanges();
     Task SaveChangesAsync();

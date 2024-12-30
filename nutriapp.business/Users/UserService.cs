@@ -29,4 +29,10 @@ public class UserService : IUserService
         var user = users.Where(x => x.Email == email).FirstOrDefault();
         return user;
     }
+
+    public async Task<User> GetById(int id)
+    {
+        var user = await unitOfWork.UserRepository.GetById(id);
+        return user;
+    }
 }
