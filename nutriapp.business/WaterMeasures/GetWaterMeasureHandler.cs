@@ -21,8 +21,9 @@ public class GetWaterMeasureHandler : IRequestHandler<GetWaterMeasureCommand, Ge
             .GetAllIncluding(x => x.UserNavigation)
             .Where(x => x.UserNavigation.Id == request.UserId)
             .OrderByDescending(x => x.UpdatedDate)
-            .Take(1);
-        
+            .Take(1)
+            .FirstOrDefault();
+
         return mapper.Map<GetWaterMeasureResponse>(waterMeasure);
     }
 }

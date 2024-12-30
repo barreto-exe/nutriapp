@@ -1,6 +1,6 @@
 ﻿namespace nutriapp.business.Users;
 
-public class CreateUserResponse : BaseResponse
+public class CreateUserResponse : BaseCommandResponse
 {
     public int? UserId { get; set; }
 }

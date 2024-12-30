@@ -55,10 +55,6 @@ public class CreateWaterMeasureHandler : IRequestHandler<CreateWaterMeasureComma
         await unitOfWork.WaterMeasureRepository.Add(waterMeasure);
         await unitOfWork.SaveChangesAsync();
 
-        return new CreateWaterMeasureResponse
-        {
-            Success = true,
-            Message = "OK",
-        };
+        return new CreateWaterMeasureResponse();
     }
 }
