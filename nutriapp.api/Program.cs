@@ -21,6 +21,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IWaterMeasureService, WaterMeasureService>();
+builder.Services.AddTransient<IWaterConsumedService, WaterConsumedService>();
 
 //Automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));

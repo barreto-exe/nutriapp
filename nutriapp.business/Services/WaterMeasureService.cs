@@ -18,7 +18,7 @@ public class WaterMeasureService : IWaterMeasureService
     {
         waterMeasure.UpdatedDate = DateTime.Now;
 
-        await unitOfWork.WaterMeasureRepository.Add(waterMeasure);
+        await unitOfWork.WaterMeasureRepository.AddAsync(waterMeasure);
         await unitOfWork.SaveChangesAsync();
     }
 

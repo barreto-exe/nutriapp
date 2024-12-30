@@ -9,8 +9,8 @@ public interface IRepository<T> where T : BaseEntity
     IQueryable<T> GetAllIncluding(Expression<Func<T, object>> includeProperty);
     IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] navigationProperties);
     IQueryable<T> GetAllIncluding(params string[] navigationProperties);
-    Task<T> GetById(object id);
-    Task Add(T item);
+    Task<T> GetByIdAsync(object id);
+    Task AddAsync(T item);
     void Update(T item);
-    Task Delete(object id);
+    Task DeleteAsync(object id);
 }

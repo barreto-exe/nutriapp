@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace nutriapp.business.WaterMeasures;
+namespace nutriapp.business.WaterConsumed;
 
-public class CreateWaterMeasureCommand : IRequest<CreateWaterMeasureResponse>
+public class CreateWaterConsumedCommand : IRequest<CreateWaterConsumedResponse>
 {
     public int User { get; set; }
     public double Quantity { get; set; }

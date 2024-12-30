@@ -18,7 +18,7 @@ public class UserService : IUserService
     {
         user.CreatedDate = DateTime.Now;
 
-        await unitOfWork.UserRepository.Add(user);
+        await unitOfWork.UserRepository.AddAsync(user);
         await unitOfWork.SaveChangesAsync();
 
         return user;
@@ -33,7 +33,7 @@ public class UserService : IUserService
 
     public async Task<User> GetByIdAsync(int id)
     {
-        var user = await unitOfWork.UserRepository.GetById(id);
+        var user = await unitOfWork.UserRepository.GetByIdAsync(id);
         return user;
     }
 }

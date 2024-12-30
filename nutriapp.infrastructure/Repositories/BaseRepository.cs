@@ -44,11 +44,11 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
 
         return query;
     }
-    public async Task<T> GetById(object id)
+    public async Task<T> GetByIdAsync(object id)
     {
         return await entities.FindAsync(id);
     }
-    public async Task Add(T item)
+    public async Task AddAsync(T item)
     {
         await entities.AddAsync(item);
     }
@@ -56,9 +56,9 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
         entities.Update(item);
     }
-    public async Task Delete(object id)
+    public async Task DeleteAsync(object id)
     {
-        var currentEntity = await GetById(id);
+        var currentEntity = await GetByIdAsync(id);
         entities.Remove(currentEntity);
     }
 }

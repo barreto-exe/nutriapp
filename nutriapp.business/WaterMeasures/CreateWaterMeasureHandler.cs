@@ -23,8 +23,8 @@ public class CreateWaterMeasureHandler : IRequestHandler<CreateWaterMeasureComma
 
     public async Task<CreateWaterMeasureResponse> Handle(CreateWaterMeasureCommand request, CancellationToken cancellationToken)
     {
-        var user = await userService.GetByIdAsync(request.UserId);
-        var measureType = await unitOfWork.MeasureTypeRepository.GetById(request.MeasureType);
+        var user = await userService.GetByIdAsync(request.User);
+        var measureType = await unitOfWork.MeasureTypeRepository.GetByIdAsync(request.MeasureType);
 
         if (user == null)
         {
