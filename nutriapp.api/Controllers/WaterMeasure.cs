@@ -24,9 +24,9 @@ public class WaterMeasure(IMediator mediator) : MyControllerBase(mediator)
     {
         var response = await mediator.Send(new GetWaterMeasureCommand { UserId = userId });
 
-        if (!response.Success)
+        if (response == null)
         {
-            return BadRequest(response);
+            return NotFound();
         }
 
         return Ok(response);
