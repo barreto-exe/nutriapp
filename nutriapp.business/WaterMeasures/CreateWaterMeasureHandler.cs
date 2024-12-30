@@ -9,21 +9,19 @@ namespace nutriapp.business.WaterMeasures;
 public class CreateWaterMeasureHandler : IRequestHandler<CreateWaterMeasureCommand, CreateWaterMeasureResponse>
 {
     private readonly IUnitOfWork unitOfWork;
-    private readonly IUserService userService;
     private readonly IWaterMeasureService waterMeasureService;
     private readonly IMapper mapper;
 
-    public CreateWaterMeasureHandler(IUnitOfWork unitOfWork, IUserService userService, IWaterMeasureService waterMeasureService, IMapper mapper)
+    public CreateWaterMeasureHandler(IUnitOfWork unitOfWork, IWaterMeasureService waterMeasureService, IMapper mapper)
     {
         this.unitOfWork = unitOfWork;
-        this.userService = userService;
         this.waterMeasureService = waterMeasureService;
         this.mapper = mapper;
     }
 
     public async Task<CreateWaterMeasureResponse> Handle(CreateWaterMeasureCommand request, CancellationToken cancellationToken)
     {
-        var user = await userService.GetByIdAsync(request.User);
+        var user = await unitOfWork.UserRepository.GetByIdAsync(request.User);
         var measureType = await unitOfWork.MeasureTypeRepository.GetByIdAsync(request.MeasureType);
 
         if (user == null)
@@ -50,7 +48,6 @@ public class CreateWaterMeasureHandler : IRequestHandler<CreateWaterMeasureComma
                 Message = "Quantity must be greater than 0"
             };
         }
-
 
         var waterMeasure = mapper.Map<WaterMeasure>(request);
 

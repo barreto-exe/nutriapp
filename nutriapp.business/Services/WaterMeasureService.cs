@@ -25,7 +25,7 @@ public class WaterMeasureService : IWaterMeasureService
     public async Task<WaterMeasure> GetWaterMeasureByUserIdAsync(int userId)
     {
         var waterMeasure = unitOfWork.WaterMeasureRepository
-        .GetAllIncluding(x => x.UserNavigation)
+            .GetAllIncluding("UserNavigation", "MeasureTypeNavigation")
             .Where(x => x.UserNavigation.Id == userId)
             .OrderByDescending(x => x.UpdatedDate)
             .Take(1)

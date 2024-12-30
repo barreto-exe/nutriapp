@@ -4,7 +4,7 @@ using nutriapp.business.WaterMeasures;
 
 namespace nutriapp.api.Controllers;
 
-public class WaterMeasure(IMediator mediator) : MyControllerBase(mediator)
+public class WaterGoal(IMediator mediator) : MyControllerBase(mediator)
 {
     [HttpPost]
     public async Task<IActionResult> CreateWaterMeasure(CreateWaterMeasureCommand command)

@@ -22,8 +22,8 @@ public class WaterConsumedService : IWaterConsumedService
     public IEnumerable<WaterConsumedEntity> GetWaterConsumedToday(int userId)
     {
         var waterConsumed = unitOfWork.WaterConsumedRepository
-            .GetAllIncluding(x => x.UserNavigation)
-            .Where(x => x.User == userId && x.CreatedDate == DateTime.Today)
+            .GetAllIncluding("UserNavigation", "MeasureTypeNavigation")
+            .Where(x => x.User == userId && x.CreatedDate.Date == DateTime.Today.Date)
             .OrderByDescending(x => x.CreatedDate)
             .ToList();
 
