@@ -315,6 +315,10 @@ public partial class NutriAppContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__foodatfri__Measu__5812160E");
 
+            entity.HasOne(d => d.PracticalMeasureTypeNavigation).WithMany(p => p.FoodMenuMeasurePracticalMeasureTypeNavigations)
+                .HasForeignKey(d => d.PracticalMeasureType)
+                .HasConstraintName("FK__FoodMenuM__Pract__10566F31");
+
             entity.HasOne(d => d.UserNavigation).WithMany(p => p.FoodMenuMeasures)
                 .HasForeignKey(d => d.User)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -436,7 +440,13 @@ public partial class NutriAppContext : DbContext
                 new MeasureType { Id = 2, Name = "Kilogramo", ConversionFactor = 1000, Abbreviation = "kg.", Type = "Masa" },
                 new MeasureType { Id = 3, Name = "Litro", ConversionFactor = 1, Abbreviation = "lt.", Type = "Capacidad" },
                 new MeasureType { Id = 4, Name = "Mililitro", ConversionFactor = 1000, Abbreviation = "ml.", Type = "Capacidad" },
-                new MeasureType { Id = 5, Name = "Taza", ConversionFactor = 1, Abbreviation = "copa", Type = "Taza" }
+                new MeasureType { Id = 5, Name = "Taza", ConversionFactor = 1, Abbreviation = "copa", Type = "Taza" },
+                new MeasureType { Id = 6, Name = "Unidad", ConversionFactor = 1, Abbreviation = "und.", Type = "Unidad" },
+                new MeasureType { Id = 7, Name = "Cuchara", ConversionFactor = 1, Abbreviation = "cda.", Type = "Cuchara" },
+                new MeasureType { Id = 8, Name = "Cucharadita", ConversionFactor = 1, Abbreviation = "cta.", Type = "Cucharadita" },
+                new MeasureType { Id = 9, Name = "Rebanada", ConversionFactor = 1, Abbreviation = "reb.", Type = "Rebanada" },
+                new MeasureType { Id = 10, Name = "Puño", ConversionFactor = 1, Abbreviation = "puño", Type = "Puño" },
+                new MeasureType { Id = 11, Name = "Vaso", ConversionFactor = 1, Abbreviation = "vaso", Type = "Vaso" }
             );
         });
 
@@ -447,6 +457,8 @@ public partial class NutriAppContext : DbContext
             entity.ToTable("UnitMenu");
 
             entity.HasIndex(e => e.FoodType, "IX_UnitMenu_FoodType");
+
+            entity.HasIndex(e => e.User, "IX_UnitMenu_User");
 
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
 

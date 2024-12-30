@@ -859,20 +859,20 @@ namespace nutriapp.infrastructure.Migrations
                     b.Property<double?>("CookedQuantity")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Cups")
-                        .HasColumnType("float");
-
                     b.Property<int>("Food")
                         .HasColumnType("int");
 
                     b.Property<int>("MeasureType")
                         .HasColumnType("int");
 
-                    b.Property<double>("Quantity")
+                    b.Property<int?>("PracticalMeasureType")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("PracticalQuantity")
                         .HasColumnType("float");
 
-                    b.Property<int?>("Units")
-                        .HasColumnType("int");
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("UpdatedDate")
                         .ValueGeneratedOnAdd()
@@ -884,6 +884,8 @@ namespace nutriapp.infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("PK__foodatfr__3214EC072CCCD628_copy1");
+
+                    b.HasIndex("PracticalMeasureType");
 
                     b.HasIndex(new[] { "CookedMeasureType" }, "IX_FoodMenuMeasure_CookedMeasureType");
 
@@ -1170,6 +1172,54 @@ namespace nutriapp.infrastructure.Migrations
                             ConversionFactor = 1.0,
                             Name = "Taza",
                             Type = "Taza"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Abbreviation = "und.",
+                            ConversionFactor = 1.0,
+                            Name = "Unidad",
+                            Type = "Unidad"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Abbreviation = "cda.",
+                            ConversionFactor = 1.0,
+                            Name = "Cuchara",
+                            Type = "Cuchara"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Abbreviation = "cta.",
+                            ConversionFactor = 1.0,
+                            Name = "Cucharadita",
+                            Type = "Cucharadita"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Abbreviation = "reb.",
+                            ConversionFactor = 1.0,
+                            Name = "Rebanada",
+                            Type = "Rebanada"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Abbreviation = "puño",
+                            ConversionFactor = 1.0,
+                            Name = "Puño",
+                            Type = "Puño"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Abbreviation = "vaso",
+                            ConversionFactor = 1.0,
+                            Name = "Vaso",
+                            Type = "Vaso"
                         });
                 });
 
@@ -1198,9 +1248,9 @@ namespace nutriapp.infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("PK__unitmenu__3214EC0726FCE74C");
 
-                    b.HasIndex("User");
-
                     b.HasIndex(new[] { "FoodType" }, "IX_UnitMenu_FoodType");
+
+                    b.HasIndex(new[] { "User" }, "IX_UnitMenu_User");
 
                     b.ToTable("UnitMenu", (string)null);
                 });
@@ -1409,6 +1459,11 @@ namespace nutriapp.infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__foodatfri__Measu__5812160E");
 
+                    b.HasOne("nutriapp.core.Entities.MeasureType", "PracticalMeasureTypeNavigation")
+                        .WithMany("FoodMenuMeasurePracticalMeasureTypeNavigations")
+                        .HasForeignKey("PracticalMeasureType")
+                        .HasConstraintName("FK__FoodMenuM__Pract__10566F31");
+
                     b.HasOne("nutriapp.core.Entities.User", "UserNavigation")
                         .WithMany("FoodMenuMeasures")
                         .HasForeignKey("User")
@@ -1420,6 +1475,8 @@ namespace nutriapp.infrastructure.Migrations
                     b.Navigation("FoodNavigation");
 
                     b.Navigation("MeasureTypeNavigation");
+
+                    b.Navigation("PracticalMeasureTypeNavigation");
 
                     b.Navigation("UserNavigation");
                 });
@@ -1561,6 +1618,8 @@ namespace nutriapp.infrastructure.Migrations
                     b.Navigation("FoodMenuMeasureCookedMeasureTypeNavigations");
 
                     b.Navigation("FoodMenuMeasureMeasureTypeNavigations");
+
+                    b.Navigation("FoodMenuMeasurePracticalMeasureTypeNavigations");
 
                     b.Navigation("WaterConsumed");
 

@@ -12,7 +12,7 @@ using nutriapp.infrastructure.Data;
 namespace nutriapp.infrastructure.Migrations
 {
     [DbContext(typeof(NutriAppContext))]
-    [Migration("20241230052959_Init")]
+    [Migration("20241230230713_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -48,6 +48,716 @@ namespace nutriapp.infrastructure.Migrations
                     b.HasIndex(new[] { "FoodType" }, "IX_Food_FoodType");
 
                     b.ToTable("Food", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FoodType = 1,
+                            Name = "Leche Líquida descremada"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FoodType = 1,
+                            Name = "Leche en polvo descremada"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FoodType = 1,
+                            Name = "Kefir"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FoodType = 1,
+                            Name = "Yogurt griego"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FoodType = 2,
+                            Name = "Carne vacuna"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FoodType = 2,
+                            Name = "Lomito desgrasado"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FoodType = 2,
+                            Name = "Pollo"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FoodType = 2,
+                            Name = "Pavo"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FoodType = 2,
+                            Name = "Gallina"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FoodType = 2,
+                            Name = "Pescado fresco"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FoodType = 2,
+                            Name = "Cangrejo"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FoodType = 2,
+                            Name = "Camarones"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            FoodType = 2,
+                            Name = "Sardinas"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            FoodType = 2,
+                            Name = "Queso bajo en grasa"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            FoodType = 2,
+                            Name = "Requesón"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            FoodType = 2,
+                            Name = "Queso Parmesano"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            FoodType = 2,
+                            Name = "Clara de huevo"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            FoodType = 3,
+                            Name = "Carne molida"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            FoodType = 3,
+                            Name = "Cordero"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            FoodType = 3,
+                            Name = "Costilla"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            FoodType = 3,
+                            Name = "Lomo"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            FoodType = 3,
+                            Name = "Queso Mozzarella"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            FoodType = 3,
+                            Name = "Jamón de pavo"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            FoodType = 3,
+                            Name = "Jamón de pollo"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            FoodType = 3,
+                            Name = "Huevo"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            FoodType = 4,
+                            Name = "Jamón de pierna"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            FoodType = 4,
+                            Name = "Jamón de espalda"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            FoodType = 4,
+                            Name = "Mortadela"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            FoodType = 4,
+                            Name = "Tocino"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            FoodType = 4,
+                            Name = "Queso Amarillo"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            FoodType = 5,
+                            Name = "Cambur manzano"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            FoodType = 5,
+                            Name = "Cambur topocho"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            FoodType = 5,
+                            Name = "Cambur guineo"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            FoodType = 5,
+                            Name = "Ciruela fresca"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            FoodType = 5,
+                            Name = "Ciruela pasa"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            FoodType = 5,
+                            Name = "Durazno"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            FoodType = 5,
+                            Name = "Fresas"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            FoodType = 5,
+                            Name = "Guayaba"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            FoodType = 5,
+                            Name = "Guanábana"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            FoodType = 5,
+                            Name = "Limón"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            FoodType = 5,
+                            Name = "Lechosa"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            FoodType = 5,
+                            Name = "Melón"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            FoodType = 5,
+                            Name = "Mandarina"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            FoodType = 5,
+                            Name = "Mango"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            FoodType = 5,
+                            Name = "Mamón"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            FoodType = 5,
+                            Name = "Melocotón"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            FoodType = 5,
+                            Name = "Mora"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            FoodType = 5,
+                            Name = "Naranja"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            FoodType = 5,
+                            Name = "Jugo de Naranja"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            FoodType = 5,
+                            Name = "Patilla"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            FoodType = 5,
+                            Name = "Parchita"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            FoodType = 5,
+                            Name = "Pera"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            FoodType = 5,
+                            Name = "Manzana"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            FoodType = 5,
+                            Name = "Piña"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            FoodType = 5,
+                            Name = "Tamarindo"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            FoodType = 5,
+                            Name = "Uva"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            FoodType = 5,
+                            Name = "Jugo de frutas"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            FoodType = 6,
+                            Name = "Acelga"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            FoodType = 6,
+                            Name = "Ajo porro"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            FoodType = 6,
+                            Name = "Apio españa"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            FoodType = 6,
+                            Name = "Berenjena"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            FoodType = 6,
+                            Name = "Brócoli"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            FoodType = 6,
+                            Name = "Calabacin"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            FoodType = 6,
+                            Name = "Champiñón"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            FoodType = 6,
+                            Name = "Cebollin"
+                        },
+                        new
+                        {
+                            Id = 66,
+                            FoodType = 6,
+                            Name = "Coliflor"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            FoodType = 6,
+                            Name = "Espinaca"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            FoodType = 6,
+                            Name = "Lechuga"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            FoodType = 6,
+                            Name = "Pepino"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            FoodType = 6,
+                            Name = "Perejil"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            FoodType = 6,
+                            Name = "Pimentón"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            FoodType = 6,
+                            Name = "Repollo"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            FoodType = 6,
+                            Name = "Tomate"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            FoodType = 7,
+                            Name = "Auyama"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            FoodType = 7,
+                            Name = "Cebolla"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            FoodType = 7,
+                            Name = "Remolacha"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            FoodType = 7,
+                            Name = "Vainitas"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            FoodType = 7,
+                            Name = "Zanahoria"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            FoodType = 8,
+                            Name = "Arepa"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            FoodType = 8,
+                            Name = "Bollo"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            FoodType = 8,
+                            Name = "Pan de Sándwich"
+                        },
+                        new
+                        {
+                            Id = 82,
+                            FoodType = 8,
+                            Name = "Pan árabe"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            FoodType = 8,
+                            Name = "Casabe"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            FoodType = 8,
+                            Name = "Avena"
+                        },
+                        new
+                        {
+                            Id = 85,
+                            FoodType = 8,
+                            Name = "Harina de trigo"
+                        },
+                        new
+                        {
+                            Id = 86,
+                            FoodType = 8,
+                            Name = "Quinoa"
+                        },
+                        new
+                        {
+                            Id = 87,
+                            FoodType = 8,
+                            Name = "Polenta"
+                        },
+                        new
+                        {
+                            Id = 88,
+                            FoodType = 8,
+                            Name = "Cuscus"
+                        },
+                        new
+                        {
+                            Id = 89,
+                            FoodType = 8,
+                            Name = "Cotufas"
+                        },
+                        new
+                        {
+                            Id = 90,
+                            FoodType = 8,
+                            Name = "Harina de arroz"
+                        },
+                        new
+                        {
+                            Id = 91,
+                            FoodType = 8,
+                            Name = "Harina de avena"
+                        },
+                        new
+                        {
+                            Id = 92,
+                            FoodType = 8,
+                            Name = "Harina de fororo"
+                        },
+                        new
+                        {
+                            Id = 93,
+                            FoodType = 8,
+                            Name = "Pasta cocida"
+                        },
+                        new
+                        {
+                            Id = 94,
+                            FoodType = 8,
+                            Name = "Arroz blanco"
+                        },
+                        new
+                        {
+                            Id = 95,
+                            FoodType = 8,
+                            Name = "Arroz integral cocido"
+                        },
+                        new
+                        {
+                            Id = 96,
+                            FoodType = 8,
+                            Name = "Yuca"
+                        },
+                        new
+                        {
+                            Id = 97,
+                            FoodType = 8,
+                            Name = "Ocumo"
+                        },
+                        new
+                        {
+                            Id = 98,
+                            FoodType = 8,
+                            Name = "Name"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            FoodType = 8,
+                            Name = "Apio"
+                        },
+                        new
+                        {
+                            Id = 100,
+                            FoodType = 8,
+                            Name = "Batata"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            FoodType = 8,
+                            Name = "Plátano"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            FoodType = 8,
+                            Name = "Papa cocida"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            FoodType = 8,
+                            Name = "Panqueca"
+                        },
+                        new
+                        {
+                            Id = 104,
+                            FoodType = 8,
+                            Name = "Granos"
+                        },
+                        new
+                        {
+                            Id = 105,
+                            FoodType = 8,
+                            Name = "Maíz Mazorca"
+                        },
+                        new
+                        {
+                            Id = 106,
+                            FoodType = 8,
+                            Name = "Galletas de soda"
+                        },
+                        new
+                        {
+                            Id = 107,
+                            FoodType = 8,
+                            Name = "Belvita Kraker"
+                        },
+                        new
+                        {
+                            Id = 108,
+                            FoodType = 9,
+                            Name = "Mayonesa"
+                        },
+                        new
+                        {
+                            Id = 109,
+                            FoodType = 9,
+                            Name = "Queso crema"
+                        },
+                        new
+                        {
+                            Id = 110,
+                            FoodType = 9,
+                            Name = "Tahini"
+                        },
+                        new
+                        {
+                            Id = 111,
+                            FoodType = 10,
+                            Name = "Aguacate"
+                        },
+                        new
+                        {
+                            Id = 112,
+                            FoodType = 10,
+                            Name = "Aceite de oliva"
+                        },
+                        new
+                        {
+                            Id = 113,
+                            FoodType = 10,
+                            Name = "Mantequilla de mani"
+                        },
+                        new
+                        {
+                            Id = 114,
+                            FoodType = 10,
+                            Name = "Mantequilla de almendra"
+                        },
+                        new
+                        {
+                            Id = 115,
+                            FoodType = 10,
+                            Name = "Mantequilla de cajú"
+                        },
+                        new
+                        {
+                            Id = 116,
+                            FoodType = 10,
+                            Name = "Almendra"
+                        },
+                        new
+                        {
+                            Id = 117,
+                            FoodType = 10,
+                            Name = "Maní"
+                        },
+                        new
+                        {
+                            Id = 118,
+                            FoodType = 10,
+                            Name = "Pecanas"
+                        });
                 });
 
             modelBuilder.Entity("nutriapp.core.Entities.FoodAtFridge", b =>
@@ -152,20 +862,20 @@ namespace nutriapp.infrastructure.Migrations
                     b.Property<double?>("CookedQuantity")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Cups")
-                        .HasColumnType("float");
-
                     b.Property<int>("Food")
                         .HasColumnType("int");
 
                     b.Property<int>("MeasureType")
                         .HasColumnType("int");
 
-                    b.Property<double>("Quantity")
+                    b.Property<int?>("PracticalMeasureType")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("PracticalQuantity")
                         .HasColumnType("float");
 
-                    b.Property<int?>("Units")
-                        .HasColumnType("int");
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("UpdatedDate")
                         .ValueGeneratedOnAdd()
@@ -177,6 +887,8 @@ namespace nutriapp.infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("PK__foodatfr__3214EC072CCCD628_copy1");
+
+                    b.HasIndex("PracticalMeasureType");
 
                     b.HasIndex(new[] { "CookedMeasureType" }, "IX_FoodMenuMeasure_CookedMeasureType");
 
@@ -212,6 +924,68 @@ namespace nutriapp.infrastructure.Migrations
                     b.HasIndex(new[] { "FoodTypeGroup" }, "IX_FoodType_FoodTypeGroup");
 
                     b.ToTable("FoodType", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FoodTypeGroup = 1,
+                            Name = "Lácteos"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FoodTypeGroup = 2,
+                            Name = "Proteínas magras"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FoodTypeGroup = 2,
+                            Name = "Proteína medianamente grasa"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FoodTypeGroup = 2,
+                            Name = "Proteínas altas en grasa"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FoodTypeGroup = 3,
+                            Name = "Frutas"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FoodTypeGroup = 4,
+                            Name = "Vegetales Tipo A"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FoodTypeGroup = 4,
+                            Name = "Vegetales Tipo B"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FoodTypeGroup = 5,
+                            Name = "Carbohidratos"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FoodTypeGroup = 6,
+                            Name = "Grasas Poli"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FoodTypeGroup = 6,
+                            Name = "Grasas mono"
+                        });
                 });
 
             modelBuilder.Entity("nutriapp.core.Entities.FoodTypeGroup", b =>
@@ -232,6 +1006,38 @@ namespace nutriapp.infrastructure.Migrations
                         .HasName("PK__foodtype__3214EC070C9807DF");
 
                     b.ToTable("FoodTypeGroup", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Lácteos"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Proteínas"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Frutas"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Vegetales"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Carbohidratos"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Grasas"
+                        });
                 });
 
             modelBuilder.Entity("nutriapp.core.Entities.GroupUnitMenu", b =>
@@ -391,10 +1197,15 @@ namespace nutriapp.infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(getdate())");
 
+                    b.Property<int>("User")
+                        .HasColumnType("int");
+
                     b.HasKey("Id")
                         .HasName("PK__unitmenu__3214EC0726FCE74C");
 
                     b.HasIndex(new[] { "FoodType" }, "IX_UnitMenu_FoodType");
+
+                    b.HasIndex(new[] { "User" }, "IX_UnitMenu_User");
 
                     b.ToTable("UnitMenu", (string)null);
                 });
@@ -603,6 +1414,11 @@ namespace nutriapp.infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__foodatfri__Measu__5812160E");
 
+                    b.HasOne("nutriapp.core.Entities.MeasureType", "PracticalMeasureTypeNavigation")
+                        .WithMany("FoodMenuMeasurePracticalMeasureTypeNavigations")
+                        .HasForeignKey("PracticalMeasureType")
+                        .HasConstraintName("FK__FoodMenuM__Pract__10566F31");
+
                     b.HasOne("nutriapp.core.Entities.User", "UserNavigation")
                         .WithMany("FoodMenuMeasures")
                         .HasForeignKey("User")
@@ -614,6 +1430,8 @@ namespace nutriapp.infrastructure.Migrations
                     b.Navigation("FoodNavigation");
 
                     b.Navigation("MeasureTypeNavigation");
+
+                    b.Navigation("PracticalMeasureTypeNavigation");
 
                     b.Navigation("UserNavigation");
                 });
@@ -667,7 +1485,15 @@ namespace nutriapp.infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__unitmenu__FoodTy__45F365D3");
 
+                    b.HasOne("nutriapp.core.Entities.User", "UserNavigation")
+                        .WithMany("UnitMenus")
+                        .HasForeignKey("User")
+                        .IsRequired()
+                        .HasConstraintName("FK__UnitMenu__User__06CD04F7");
+
                     b.Navigation("FoodTypeNavigation");
+
+                    b.Navigation("UserNavigation");
                 });
 
             modelBuilder.Entity("nutriapp.core.Entities.WaterConsumed", b =>
@@ -748,6 +1574,8 @@ namespace nutriapp.infrastructure.Migrations
 
                     b.Navigation("FoodMenuMeasureMeasureTypeNavigations");
 
+                    b.Navigation("FoodMenuMeasurePracticalMeasureTypeNavigations");
+
                     b.Navigation("WaterConsumed");
 
                     b.Navigation("WaterMeasures");
@@ -762,6 +1590,8 @@ namespace nutriapp.infrastructure.Migrations
                     b.Navigation("FoodMenuMeasures");
 
                     b.Navigation("MealTypes");
+
+                    b.Navigation("UnitMenus");
 
                     b.Navigation("WaterConsumed");
 

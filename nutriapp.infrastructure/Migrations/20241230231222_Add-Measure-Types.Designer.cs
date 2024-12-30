@@ -12,8 +12,8 @@ using nutriapp.infrastructure.Data;
 namespace nutriapp.infrastructure.Migrations
 {
     [DbContext(typeof(NutriAppContext))]
-    [Migration("20241230222912_Add-Food-Data")]
-    partial class AddFoodData
+    [Migration("20241230231222_Add-Measure-Types")]
+    partial class AddMeasureTypes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -862,20 +862,20 @@ namespace nutriapp.infrastructure.Migrations
                     b.Property<double?>("CookedQuantity")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Cups")
-                        .HasColumnType("float");
-
                     b.Property<int>("Food")
                         .HasColumnType("int");
 
                     b.Property<int>("MeasureType")
                         .HasColumnType("int");
 
-                    b.Property<double>("Quantity")
+                    b.Property<int?>("PracticalMeasureType")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("PracticalQuantity")
                         .HasColumnType("float");
 
-                    b.Property<int?>("Units")
-                        .HasColumnType("int");
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("UpdatedDate")
                         .ValueGeneratedOnAdd()
@@ -887,6 +887,8 @@ namespace nutriapp.infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("PK__foodatfr__3214EC072CCCD628_copy1");
+
+                    b.HasIndex("PracticalMeasureType");
 
                     b.HasIndex(new[] { "CookedMeasureType" }, "IX_FoodMenuMeasure_CookedMeasureType");
 
@@ -1173,6 +1175,54 @@ namespace nutriapp.infrastructure.Migrations
                             ConversionFactor = 1.0,
                             Name = "Taza",
                             Type = "Taza"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Abbreviation = "und.",
+                            ConversionFactor = 1.0,
+                            Name = "Unidad",
+                            Type = "Unidad"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Abbreviation = "cda.",
+                            ConversionFactor = 1.0,
+                            Name = "Cuchara",
+                            Type = "Cuchara"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Abbreviation = "cta.",
+                            ConversionFactor = 1.0,
+                            Name = "Cucharadita",
+                            Type = "Cucharadita"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Abbreviation = "reb.",
+                            ConversionFactor = 1.0,
+                            Name = "Rebanada",
+                            Type = "Rebanada"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Abbreviation = "puño",
+                            ConversionFactor = 1.0,
+                            Name = "Puño",
+                            Type = "Puño"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Abbreviation = "vaso",
+                            ConversionFactor = 1.0,
+                            Name = "Vaso",
+                            Type = "Vaso"
                         });
                 });
 
@@ -1195,10 +1245,15 @@ namespace nutriapp.infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(getdate())");
 
+                    b.Property<int>("User")
+                        .HasColumnType("int");
+
                     b.HasKey("Id")
                         .HasName("PK__unitmenu__3214EC0726FCE74C");
 
                     b.HasIndex(new[] { "FoodType" }, "IX_UnitMenu_FoodType");
+
+                    b.HasIndex(new[] { "User" }, "IX_UnitMenu_User");
 
                     b.ToTable("UnitMenu", (string)null);
                 });
@@ -1407,6 +1462,11 @@ namespace nutriapp.infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__foodatfri__Measu__5812160E");
 
+                    b.HasOne("nutriapp.core.Entities.MeasureType", "PracticalMeasureTypeNavigation")
+                        .WithMany("FoodMenuMeasurePracticalMeasureTypeNavigations")
+                        .HasForeignKey("PracticalMeasureType")
+                        .HasConstraintName("FK__FoodMenuM__Pract__10566F31");
+
                     b.HasOne("nutriapp.core.Entities.User", "UserNavigation")
                         .WithMany("FoodMenuMeasures")
                         .HasForeignKey("User")
@@ -1418,6 +1478,8 @@ namespace nutriapp.infrastructure.Migrations
                     b.Navigation("FoodNavigation");
 
                     b.Navigation("MeasureTypeNavigation");
+
+                    b.Navigation("PracticalMeasureTypeNavigation");
 
                     b.Navigation("UserNavigation");
                 });
@@ -1471,7 +1533,15 @@ namespace nutriapp.infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK__unitmenu__FoodTy__45F365D3");
 
+                    b.HasOne("nutriapp.core.Entities.User", "UserNavigation")
+                        .WithMany("UnitMenus")
+                        .HasForeignKey("User")
+                        .IsRequired()
+                        .HasConstraintName("FK__UnitMenu__User__06CD04F7");
+
                     b.Navigation("FoodTypeNavigation");
+
+                    b.Navigation("UserNavigation");
                 });
 
             modelBuilder.Entity("nutriapp.core.Entities.WaterConsumed", b =>
@@ -1552,6 +1622,8 @@ namespace nutriapp.infrastructure.Migrations
 
                     b.Navigation("FoodMenuMeasureMeasureTypeNavigations");
 
+                    b.Navigation("FoodMenuMeasurePracticalMeasureTypeNavigations");
+
                     b.Navigation("WaterConsumed");
 
                     b.Navigation("WaterMeasures");
@@ -1566,6 +1638,8 @@ namespace nutriapp.infrastructure.Migrations
                     b.Navigation("FoodMenuMeasures");
 
                     b.Navigation("MealTypes");
+
+                    b.Navigation("UnitMenus");
 
                     b.Navigation("WaterConsumed");
 
