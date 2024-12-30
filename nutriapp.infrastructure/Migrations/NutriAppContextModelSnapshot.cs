@@ -50,7 +50,10 @@ namespace nutriapp.infrastructure.Migrations
             modelBuilder.Entity("nutriapp.core.Entities.FoodAtFridge", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Food")
                         .HasColumnType("int");
@@ -84,7 +87,10 @@ namespace nutriapp.infrastructure.Migrations
             modelBuilder.Entity("nutriapp.core.Entities.FoodConsumed", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("CookedMeasureType")
                         .HasColumnType("int");
@@ -132,7 +138,10 @@ namespace nutriapp.infrastructure.Migrations
             modelBuilder.Entity("nutriapp.core.Entities.FoodMenuMeasure", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("CookedMeasureType")
                         .HasColumnType("int");
@@ -282,7 +291,10 @@ namespace nutriapp.infrastructure.Migrations
             modelBuilder.Entity("nutriapp.core.Entities.MeasureType", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Abbreviation")
                         .IsRequired()
@@ -303,9 +315,11 @@ namespace nutriapp.infrastructure.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(50)")
+                        .HasDefaultValue("");
 
                     b.HasKey("Id")
                         .HasName("PK__measuret__3214EC07D870CDE6");
@@ -434,7 +448,10 @@ namespace nutriapp.infrastructure.Migrations
             modelBuilder.Entity("nutriapp.core.Entities.WaterConsumed", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
@@ -463,7 +480,10 @@ namespace nutriapp.infrastructure.Migrations
             modelBuilder.Entity("nutriapp.core.Entities.WaterMeasure", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("MeasureType")
                         .HasColumnType("int");

@@ -91,7 +91,6 @@ public partial class NutriAppContext : DbContext
 
             entity.HasIndex(e => e.User, "IX_FoodAtFridge_User");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.FoodNavigation).WithMany(p => p.FoodAtFridges)
@@ -124,7 +123,6 @@ public partial class NutriAppContext : DbContext
 
             entity.HasIndex(e => e.User, "IX_FoodConsumed_User");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.CookedMeasureTypeNavigation).WithMany(p => p.FoodConsumedCookedMeasureTypeNavigations)
@@ -161,7 +159,6 @@ public partial class NutriAppContext : DbContext
 
             entity.HasIndex(e => e.User, "IX_FoodMenuMeasure_User");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.CookedMeasureTypeNavigation).WithMany(p => p.FoodMenuMeasureCookedMeasureTypeNavigations)
@@ -260,7 +257,6 @@ public partial class NutriAppContext : DbContext
 
             entity.ToTable("MeasureType");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Abbreviation)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -270,7 +266,8 @@ public partial class NutriAppContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Type)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasDefaultValue("");
 
             entity.HasData(
                 new MeasureType { Id = 1, Name = "Gramo", ConversionFactor = 1, Abbreviation = "gr.", Type = "Masa" },
@@ -331,7 +328,6 @@ public partial class NutriAppContext : DbContext
 
             entity.HasIndex(e => e.User, "IX_WaterConsumed_User");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.WaterConsumed)
@@ -355,7 +351,6 @@ public partial class NutriAppContext : DbContext
 
             entity.HasIndex(e => e.User, "IX_WaterMeasure_User");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
 
             entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.WaterMeasures)

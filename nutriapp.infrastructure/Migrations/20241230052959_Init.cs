@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace nutriapp.infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,8 +30,12 @@ namespace nutriapp.infrastructure.Migrations
                 name: "MeasureType",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
+                    Abbreviation = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false, defaultValue: ""),
+                    ConversionFactor = table.Column<double>(type: "float", nullable: false),
+                    Type = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, defaultValue: "")
                 },
                 constraints: table =>
                 {
@@ -42,10 +48,11 @@ namespace nutriapp.infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
-                    Password = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
-                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
-                    Lastname = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true)
+                    Email = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false, defaultValue: ""),
+                    Password = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false, defaultValueSql: "(getdate())"),
+                    Name = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false, defaultValue: ""),
+                    Lastname = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false, defaultValue: ""),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,6 +92,58 @@ namespace nutriapp.infrastructure.Migrations
                     table.PrimaryKey("PK__mealtype__3213E83F0ABA1F94", x => x.Id);
                     table.ForeignKey(
                         name: "FK__mealtype__User__4BAC3F29",
+                        column: x => x.User,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WaterConsumed",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    User = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<double>(type: "float", nullable: false),
+                    MeasureType = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__WaterCon__3214EC07E8C2D1E2", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK__WaterCons__Measu__74AE54BC",
+                        column: x => x.MeasureType,
+                        principalTable: "MeasureType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK__WaterConsu__User__75A278F5",
+                        column: x => x.User,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WaterMeasure",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    User = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<double>(type: "float", nullable: false),
+                    MeasureType = table.Column<int>(type: "int", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__WaterMea__3214EC07C392C313", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK__WaterMeas__Measu__6E01572D",
+                        column: x => x.MeasureType,
+                        principalTable: "MeasureType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK__WaterMeasu__User__6D0D32F4",
                         column: x => x.User,
                         principalTable: "User",
                         principalColumn: "Id");
@@ -159,7 +218,8 @@ namespace nutriapp.infrastructure.Migrations
                 name: "FoodAtFridge",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     User = table.Column<int>(type: "int", nullable: false),
                     Food = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<double>(type: "float", nullable: false),
@@ -190,7 +250,8 @@ namespace nutriapp.infrastructure.Migrations
                 name: "FoodConsumed",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     User = table.Column<int>(type: "int", nullable: false),
                     Food = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<double>(type: "float", nullable: false),
@@ -230,7 +291,8 @@ namespace nutriapp.infrastructure.Migrations
                 name: "FoodMenuMeasure",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     User = table.Column<int>(type: "int", nullable: false),
                     Food = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<double>(type: "float", nullable: false),
@@ -264,6 +326,18 @@ namespace nutriapp.infrastructure.Migrations
                         column: x => x.CookedMeasureType,
                         principalTable: "MeasureType",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "MeasureType",
+                columns: new[] { "Id", "Abbreviation", "ConversionFactor", "Name", "Type" },
+                values: new object[,]
+                {
+                    { 1, "gr.", 1.0, "Gramo", "Masa" },
+                    { 2, "kg.", 1000.0, "Kilogramo", "Masa" },
+                    { 3, "lt.", 1.0, "Litro", "Capacidad" },
+                    { 4, "ml.", 1000.0, "Mililitro", "Capacidad" },
+                    { 5, "copa", 1.0, "Taza", "Taza" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -350,6 +424,26 @@ namespace nutriapp.infrastructure.Migrations
                 name: "IX_UnitMenu_FoodType",
                 table: "UnitMenu",
                 column: "FoodType");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WaterConsumed_MeasureType",
+                table: "WaterConsumed",
+                column: "MeasureType");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WaterConsumed_User",
+                table: "WaterConsumed",
+                column: "User");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WaterMeasure_MeasureType",
+                table: "WaterMeasure",
+                column: "MeasureType");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WaterMeasure_User",
+                table: "WaterMeasure",
+                column: "User");
         }
 
         /// <inheritdoc />
@@ -371,13 +465,19 @@ namespace nutriapp.infrastructure.Migrations
                 name: "UnitMenu");
 
             migrationBuilder.DropTable(
-                name: "MeasureType");
+                name: "WaterConsumed");
+
+            migrationBuilder.DropTable(
+                name: "WaterMeasure");
 
             migrationBuilder.DropTable(
                 name: "Food");
 
             migrationBuilder.DropTable(
                 name: "MealType");
+
+            migrationBuilder.DropTable(
+                name: "MeasureType");
 
             migrationBuilder.DropTable(
                 name: "FoodType");

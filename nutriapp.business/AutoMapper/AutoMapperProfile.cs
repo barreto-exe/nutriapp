@@ -10,8 +10,9 @@ public class AutoMapperProfile : Profile
     public AutoMapperProfile()
     {
         CreateMap<CreateUserCommand, User>();
-        CreateMap<CreateWaterMeasureCommand, WaterMeasure>();
-           
+        CreateMap<CreateWaterMeasureCommand, WaterMeasure>()
+            .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.UserId));
+
         CreateMap<WaterMeasure, GetWaterMeasureResponse>();
     }
 }
