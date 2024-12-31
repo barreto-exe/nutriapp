@@ -18,4 +18,13 @@ public class GroupUnitMenu(IMediator mediator) : MyControllerBase(mediator)
 
         return Ok(response);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetGroupUnitMenu(int userId)
+    {
+        var command = new GetGroupUnitMenuCommand { User = userId };
+        var response = await mediator.Send(command);
+
+        return Ok(response);
+    }
 }

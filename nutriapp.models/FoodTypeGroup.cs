@@ -1,8 +1,7 @@
 ﻿namespace nutriapp.models;
 
-public class MealType
+public class FoodTypeGroup
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public IEnumerable<FoodTypeGroupQuantity>? Quantities { get; set; }
 }

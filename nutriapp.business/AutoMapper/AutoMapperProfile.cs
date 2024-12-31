@@ -22,7 +22,14 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateGroupUnitMenuCommand, GroupUnitMenuEntity>();
 
         //Entities to Models
+        CreateMap<FoodTypeGroup, models.FoodTypeGroup>();
+        CreateMap<GroupUnitMenuEntity, models.GroupUnitMenu>()
+            .ForMember(dest => dest.MealType, opt => opt.MapFrom(src => src.MealTypeNavigation))
+            .ForMember(dest => dest.FoodTypeGroup, opt => opt.MapFrom(src => src.FoodTypeGroupNavigation));
+        CreateMap<MealType, models.MealType>()
+            .ForMember(dest => dest.Quantities, opt => opt.MapFrom(src => src.GroupUnitMenus));
+        CreateMap<GroupUnitMenuEntity, models.FoodTypeGroupQuantity>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FoodTypeGroupNavigation.Name));
         CreateMap<WaterMeasure, models.WaterMeasure>();
-        CreateMap<MealType, models.MealType>();
     }
 }

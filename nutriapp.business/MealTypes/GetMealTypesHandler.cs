@@ -19,9 +19,18 @@ public class GetMealTypesHandler : IRequestHandler<GetMealTypesCommand, GetMealT
     public async Task<GetMealTypesResponse> Handle(GetMealTypesCommand request, CancellationToken cancellationToken)
     {
         var mealTypes = unitOfWork.MealTypeRepository
-            .GetAll()
+            .GetAllIncluding("GroupUnitMenus", "GroupUnitMenus.FoodTypeGroupNavigation")
             .Where(x => x.User == request.User)
             .ToList();
+
+        //Select only those GroupUnitMenus that are the most recent for its MealType and FoodTypeGroup
+        foreach (var mealType in mealTypes)
+        {
+            mealType.GroupUnitMenus = mealType.GroupUnitMenus
+                .GroupBy(gum => gum.FoodTypeGroup)
+                .Select(gum => gum.OrderByDescending(g => g.UpdatedDate).FirstOrDefault())
+                .ToList();
+        }
 
         var mappedMealTypes = mapper.Map<IEnumerable<MealType>>(mealTypes);
 
