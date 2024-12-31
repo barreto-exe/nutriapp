@@ -8,9 +8,9 @@ public partial class FoodConsumed : BaseEntity
 
     public int Food { get; set; }
 
-    public double Quantity { get; set; }
+    public double? Quantity { get; set; }
 
-    public int MeasureType { get; set; }
+    public int? MeasureType { get; set; }
 
     public double? CookedQuantity { get; set; }
 
@@ -26,7 +26,7 @@ public partial class FoodConsumed : BaseEntity
 
     public virtual Food FoodNavigation { get; set; } = null!;
 
-    public virtual MeasureType MeasureTypeNavigation { get; set; } = null!;
+    public virtual MeasureType? MeasureTypeNavigation { get; set; }
 
     public virtual MeasureType? PracticalMeasureTypeNavigation { get; set; }
 

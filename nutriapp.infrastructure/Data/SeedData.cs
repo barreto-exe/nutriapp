@@ -10,7 +10,7 @@ public static class SeedData
         new() { Id = 2, Name = "Kilogramo", ConversionFactor = 1000, Abbreviation = "kg.", Type = "Masa" },
         new() { Id = 3, Name = "Litro", ConversionFactor = 1000, Abbreviation = "lt.", Type = "Capacidad" },
         new() { Id = 4, Name = "Mililitro", ConversionFactor = 1, Abbreviation = "ml.", Type = "Capacidad" },
-        new() { Id = 5, Name = "Taza", ConversionFactor = 1, Abbreviation = "copa", Type = "Taza" },
+        new() { Id = 5, Name = "Taza", ConversionFactor = 1, Abbreviation = "taza", Type = "Taza" },
         new() { Id = 6, Name = "Unidad", ConversionFactor = 1, Abbreviation = "und.", Type = "Unidad" },
         new() { Id = 7, Name = "Cuchara", ConversionFactor = 1, Abbreviation = "cda.", Type = "Cuchara" },
         new() { Id = 8, Name = "Cucharadita", ConversionFactor = 1, Abbreviation = "cta.", Type = "Cucharadita" },

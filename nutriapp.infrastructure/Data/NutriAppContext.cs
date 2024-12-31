@@ -158,7 +158,6 @@ public partial class NutriAppContext : DbContext
 
             entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.FoodConsumedMeasureTypeNavigations)
                 .HasForeignKey(d => d.MeasureType)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__foodatmea__Measu__656C112C");
 
             entity.HasOne(d => d.PracticalMeasureTypeNavigation).WithMany(p => p.FoodConsumedPracticalMeasureTypeNavigations)

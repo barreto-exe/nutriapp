@@ -50,7 +50,7 @@ public class GetFoodConsumedHandler : IRequestHandler<GetFoodConsumedCommand, Ge
             {
                 Name = g.Key,
 
-                TotalQuantity = g.Sum(fc => ConverQuantity(fc.Quantity, fc.MeasureTypeNavigation.ConversionFactor)),
+                TotalQuantity = g.Sum(fc => ConverQuantity(fc.Quantity, fc.MeasureTypeNavigation?.ConversionFactor)),
                 Measure = GetUnitMeasureName(measures, g.FirstOrDefault()?.MeasureType),
 
                 TotalCookedQuantity = g.Sum(fc => ConverQuantity(fc.CookedQuantity, fc.CookedMeasureTypeNavigation?.ConversionFactor)),
