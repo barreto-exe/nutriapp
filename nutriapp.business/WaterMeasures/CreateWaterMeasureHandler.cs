@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Azure;
 using MediatR;
 using nutriapp.business.Interfaces;
+using nutriapp.business.Services;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 
@@ -21,38 +23,27 @@ public class CreateWaterMeasureHandler : IRequestHandler<CreateWaterMeasureComma
 
     public async Task<CreateWaterMeasureResponse> Handle(CreateWaterMeasureCommand request, CancellationToken cancellationToken)
     {
+        var response = new CreateWaterMeasureResponse();
+
         var user = await unitOfWork.UserRepository.GetByIdAsync(request.User);
         var measureType = await unitOfWork.MeasureTypeRepository.GetByIdAsync(request.MeasureType);
 
-        if (user == null)
+        response.AddValidationMessages(
+        [
+            (user == null, "User not found"),
+            (measureType == null, "Measure type not found"),
+            (request.Quantity <= 0, "Quantity must be greater than 0")
+        ]);
+
+        if (!response.Success)
         {
-            return new CreateWaterMeasureResponse
-            {
-                Success = false,
-                Message = "User not found"
-            };
-        }
-        if (measureType == null)
-        {
-            return new CreateWaterMeasureResponse
-            {
-                Success = false,
-                Message = "Measure type not found"
-            };
-        }
-        if (request.Quantity <= 0)
-        {
-            return new CreateWaterMeasureResponse
-            {
-                Success = false,
-                Message = "Quantity must be greater than 0"
-            };
+            return response;
         }
 
         var waterMeasure = mapper.Map<WaterMeasure>(request);
 
         await waterMeasureService.CreateAsync(waterMeasure);
 
-        return new CreateWaterMeasureResponse();
+        return response;
     }
 }

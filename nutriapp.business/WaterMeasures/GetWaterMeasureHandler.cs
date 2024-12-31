@@ -2,6 +2,7 @@
 using MediatR;
 using nutriapp.business.Interfaces;
 using nutriapp.infrastructure.Interfaces;
+using nutriapp.models;
 
 namespace nutriapp.business.WaterMeasures;
 
@@ -19,6 +20,7 @@ public class GetWaterMeasureHandler : IRequestHandler<GetWaterMeasureCommand, Ge
     public async Task<GetWaterMeasureResponse> Handle(GetWaterMeasureCommand request, CancellationToken cancellationToken)
     {
         var waterMeasure = await waterMeasureService.GetWaterMeasureByUserIdAsync(request.UserId);
-        return mapper.Map<GetWaterMeasureResponse>(waterMeasure);
+        var response = new GetWaterMeasureResponse { WaterMeasure = mapper.Map<WaterMeasure>(waterMeasure) };
+        return response;
     }
 }

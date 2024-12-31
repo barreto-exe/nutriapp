@@ -1,7 +1,8 @@
-﻿namespace nutriapp.business.WaterMeasures;
+﻿using nutriapp.models;
+
+namespace nutriapp.business.WaterMeasures;
 
 public class GetWaterMeasureResponse
 {
-    public double Quantity { get; set; }
-    public int MeasureType { get; set; }
+    public WaterMeasure? WaterMeasure { get; set; }
 }
