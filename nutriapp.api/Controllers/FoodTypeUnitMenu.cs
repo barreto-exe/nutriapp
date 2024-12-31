@@ -4,7 +4,7 @@ using nutriapp.business.UnitMenu;
 
 namespace nutriapp.api.Controllers;
 
-public class UnitMenu(IMediator mediator) : MyControllerBase(mediator)
+public class FoodTypeUnitMenu(IMediator mediator) : MyControllerBase(mediator)
 {
     [HttpPost]
     public async Task<IActionResult> CreateUnitMenu(CreateUnitMenuCommand command)

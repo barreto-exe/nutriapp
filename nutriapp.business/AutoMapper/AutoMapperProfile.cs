@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using nutriapp.business.FoodsConsumed;
 using nutriapp.business.GroupUnitMenu;
 using nutriapp.business.MealTypes;
 using nutriapp.business.UnitMenu;
@@ -23,6 +24,7 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateMealTypeCommand, MealType>();
         CreateMap<CreateGroupUnitMenuCommand, GroupUnitMenuEntity>();
         CreateMap<CreateUnitMenuCommand, UnitMenuEntity>();
+        CreateMap<CreateFoodConsumedCommand, FoodConsumed>();
 
         //Entities to Models
         CreateMap<FoodTypeGroup, models.FoodTypeGroup>();
