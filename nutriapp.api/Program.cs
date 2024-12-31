@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using nutriapp.business.AutoMapper;
-using nutriapp.business.Base;
 using nutriapp.business.Interfaces;
 using nutriapp.business.Services;
 using nutriapp.business.Users;

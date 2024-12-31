@@ -1,5 +1,4 @@
-﻿using nutriapp.business.Base;
-using nutriapp.business.Interfaces;
+﻿using nutriapp.business.Interfaces;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 

@@ -19,7 +19,7 @@ public class UpdateMealTypeHandler : IRequestHandler<UpdateMealTypeCommand, Upda
     public async Task<UpdateMealTypeResponse> Handle(UpdateMealTypeCommand request, CancellationToken cancellationToken)
     {
         var response = new UpdateMealTypeResponse();
-        
+
         var user = await unitOfWork.UserRepository.GetByIdAsync(request.User);
         var meal = await unitOfWork.MealTypeRepository.GetByIdAsync(request.Meal);
 

@@ -39,7 +39,7 @@ namespace nutriapp.business.GroupUnitMenu
             var groupUnitMenu = mapper.Map<GroupUnitMenuEntity>(request);
 
             groupUnitMenu.UpdatedDate = DateTime.Now;
-            
+
             await unitOfWork.GroupUnitMenuRepository.AddAsync(groupUnitMenu);
             await unitOfWork.SaveChangesAsync();
 

@@ -5,8 +5,8 @@ using nutriapp.business.Users;
 using nutriapp.business.WaterConsumed;
 using nutriapp.business.WaterMeasures;
 using nutriapp.core.Entities;
-using WaterConsumedEntity = nutriapp.core.Entities.WaterConsumed;
 using GroupUnitMenuEntity = nutriapp.core.Entities.GroupUnitMenu;
+using WaterConsumedEntity = nutriapp.core.Entities.WaterConsumed;
 
 namespace nutriapp.business.AutoMapper;
 

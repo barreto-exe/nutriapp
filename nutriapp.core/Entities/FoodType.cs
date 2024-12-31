@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace nutriapp.core.Entities;
+﻿namespace nutriapp.core.Entities;
 public partial class FoodType : BaseEntity
 {
     public int Id { get; set; }
