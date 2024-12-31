@@ -15,4 +15,6 @@ public partial class Food : BaseEntity
     public virtual ICollection<FoodMenuMeasure> FoodMenuMeasures { get; set; } = new List<FoodMenuMeasure>();
 
     public virtual FoodType FoodTypeNavigation { get; set; } = null!;
+
+    public virtual ICollection<MeasureType> MeasureTypes { get; set; } = new List<MeasureType>();
 }
