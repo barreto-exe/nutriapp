@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using nutriapp.business.Interfaces;
+using nutriapp.business.Services;
 using nutriapp.infrastructure.Interfaces;
 using WaterConsumedEntity = nutriapp.core.Entities.WaterConsumed;
 
@@ -22,35 +23,22 @@ public class CreateWaterConsumedHandler : IRequestHandler<CreateWaterConsumedCom
 
     public async Task<CreateWaterConsumedResponse> Handle(CreateWaterConsumedCommand request, CancellationToken cancellationToken)
     {
+        var response = new CreateWaterConsumedResponse();
+
         var user = await unitOfWork.UserRepository.GetByIdAsync(request.User);
         var measure = await unitOfWork.MeasureTypeRepository.GetByIdAsync(request.MeasureType);
         var waterGoal = await waterMeasureService.GetWaterMeasureByUserIdAsync(request.User);
 
-        var response = new CreateWaterConsumedResponse();
-        var messages = new List<string>();
-        if (user == null)
-        {
-            response.Success = false;
-            messages.Add("User not found");
-        }
-        if (measure == null)
-        {
-            response.Success = false;
-            messages.Add("Measure type not found");
-        }
-        if (measure?.Type != "Capacidad")
-        {
-            response.Success = false;
-            messages.Add("Measure type must be 'Capacidad'");
-        }
-        if (waterGoal == null)
-        {
-            response.Success = false;
-            messages.Add("Water goal not found");
-        }
+        response.AddValidationMessages(
+        [
+            (user == null, "User not found"),
+            (measure == null, "Measure type not found"),
+            (measure?.Type != "Capacidad", "Measure type must be 'Capacidad'"),
+            (waterGoal == null, "Water goal not found")
+        ]);
+
         if (!response.Success)
         {
-            response.Message = string.Join("; ", messages);
             return response;
         }
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using nutriapp.business.Services;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 
@@ -18,11 +19,24 @@ public class CreateMealTypeHandler : IRequestHandler<CreateMealTypeCommand, Crea
 
     public async Task<CreateMealTypeResponse> Handle(CreateMealTypeCommand request, CancellationToken cancellationToken)
     {
+        var response = new CreateMealTypeResponse();
+        var user = await unitOfWork.UserRepository.GetByIdAsync(request.User);
+
+        response.AddValidationMessages(
+        [
+            (user == null, "User not found")
+        ]);
+
+        if (!response.Success)
+        {
+            return response;
+        }
+
         var mealEntity = mapper.Map<MealType>(request);
 
         await unitOfWork.MealTypeRepository.AddAsync(mealEntity);
         await unitOfWork.SaveChangesAsync();
 
-        return new CreateMealTypeResponse();
+        return response;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using nutriapp.business.Interfaces;
+using nutriapp.business.Services;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 
@@ -21,26 +22,24 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
 
     public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+        var response = new CreateUserResponse();
         var user = await userService.GetByEmailAsync(request.Email);
 
-        if (user != null)
+        response.AddValidationMessages(
+        [
+            (user != null, "User already exists")
+        ]);
+
+        if (!response.Success)
         {
-            return new CreateUserResponse
-            {
-                Success = false,
-                Message = "User already exists"
-            };
+            return response;
         }
 
         user = mapper.Map<User>(request);
 
         await userService.CreateAsync(user);
 
-        return new CreateUserResponse
-        {
-            Success = true,
-            Message = "OK",
-            UserId = user.Id
-        };
+        response.UserId = user.Id;
+        return response;
     }
 }

@@ -28,4 +28,16 @@ public class MealTypes(IMediator mediator) : MyControllerBase(mediator)
         return Ok(response);
     }
 
+    [HttpPut]
+    public async Task<IActionResult> UpdateMealType(UpdateMealTypeCommand command)
+    {
+        var response = await mediator.Send(command);
+
+        if (!response.Success)
+        {
+            return BadRequest(response);
+        }
+
+        return Ok(response);
+    }
 }
