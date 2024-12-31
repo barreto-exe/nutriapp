@@ -25,6 +25,8 @@ public class MealTypes(IMediator mediator) : MyControllerBase(mediator)
         var command = new GetMealTypesCommand { User = userId };
         var response = await mediator.Send(command);
 
+        if (response == null || !response.Success) return NotFound();
+
         return Ok(response);
     }
 

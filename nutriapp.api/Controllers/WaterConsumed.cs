@@ -24,10 +24,7 @@ public class WaterConsumed(IMediator mediator) : MyControllerBase(mediator)
     {
         var response = await mediator.Send(new GetWaterConsumedCommand { User = userId });
 
-        if (response == null)
-        {
-            return NotFound();
-        }
+        if (response == null || !response.Success) return NotFound();
 
         return Ok(response);
     }
