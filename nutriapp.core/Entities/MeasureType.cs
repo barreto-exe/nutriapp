@@ -18,6 +18,8 @@ public partial class MeasureType : BaseEntity
 
     public virtual ICollection<FoodConsumed> FoodConsumedMeasureTypeNavigations { get; set; } = new List<FoodConsumed>();
 
+    public virtual ICollection<FoodConsumed> FoodConsumedPracticalMeasureTypeNavigations { get; set; } = new List<FoodConsumed>();
+
     public virtual ICollection<FoodMenuMeasure> FoodMenuMeasureCookedMeasureTypeNavigations { get; set; } = new List<FoodMenuMeasure>();
 
     public virtual ICollection<FoodMenuMeasure> FoodMenuMeasureMeasureTypeNavigations { get; set; } = new List<FoodMenuMeasure>();

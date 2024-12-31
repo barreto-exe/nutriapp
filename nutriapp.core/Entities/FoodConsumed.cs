@@ -16,9 +16,9 @@ public partial class FoodConsumed : BaseEntity
 
     public int? CookedMeasureType { get; set; }
 
-    public double? Cups { get; set; }
+    public double? PracticalQuantity { get; set; }
 
-    public int? Units { get; set; }
+    public int? PracticalMeasureType { get; set; }
 
     public DateTime UpdatedDate { get; set; }
 
@@ -27,6 +27,8 @@ public partial class FoodConsumed : BaseEntity
     public virtual Food FoodNavigation { get; set; } = null!;
 
     public virtual MeasureType MeasureTypeNavigation { get; set; } = null!;
+
+    public virtual MeasureType? PracticalMeasureTypeNavigation { get; set; }
 
     public virtual User UserNavigation { get; set; } = null!;
 }

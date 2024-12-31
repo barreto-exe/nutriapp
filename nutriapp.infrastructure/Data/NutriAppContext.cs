@@ -279,6 +279,10 @@ public partial class NutriAppContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__foodatmea__Measu__656C112C");
 
+            entity.HasOne(d => d.PracticalMeasureTypeNavigation).WithMany(p => p.FoodConsumedPracticalMeasureTypeNavigations)
+                .HasForeignKey(d => d.PracticalMeasureType)
+                .HasConstraintName("FK__FoodConsu__Pract__04E4BC85");
+
             entity.HasOne(d => d.UserNavigation).WithMany(p => p.FoodConsumeds)
                 .HasForeignKey(d => d.User)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -296,6 +300,8 @@ public partial class NutriAppContext : DbContext
             entity.HasIndex(e => e.Food, "IX_FoodMenuMeasure_Food");
 
             entity.HasIndex(e => e.MeasureType, "IX_FoodMenuMeasure_MeasureType");
+
+            entity.HasIndex(e => e.PracticalMeasureType, "IX_FoodMenuMeasure_PracticalMeasureType");
 
             entity.HasIndex(e => e.User, "IX_FoodMenuMeasure_User");
 
