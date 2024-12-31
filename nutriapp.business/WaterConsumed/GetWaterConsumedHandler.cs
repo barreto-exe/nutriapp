@@ -23,14 +23,14 @@ public class GetWaterConsumedHandler : IRequestHandler<GetWaterConsumedCommand, 
         double litersConsumedToday = waterConsumedService
             .GetWaterConsumedToday(request.User)
             .ToList()
-            .Sum(x => x.Quantity / x.MeasureTypeNavigation.ConversionFactor);
+            .Sum(x => x.Quantity * x.MeasureTypeNavigation.ConversionFactor);
 
-        double litersGoal = waterGoal.Quantity / waterGoal.MeasureTypeNavigation.ConversionFactor;
+        double litersGoal = waterGoal.Quantity * waterGoal.MeasureTypeNavigation.ConversionFactor;
 
         return new GetWaterConsumedResponse
         {
-            LitersLeft = Math.Round(litersGoal - litersConsumedToday, 2),
-            LitersConsumedToday = Math.Round(litersConsumedToday, 2),
+            MililitersLeft = Math.Round(litersGoal - litersConsumedToday, 2),
+            MililitersConsumedToday = Math.Round(litersConsumedToday, 2),
         };
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using nutriapp.business.Interfaces;
+using nutriapp.infrastructure.Data;
 using nutriapp.models;
 
 namespace nutriapp.business.WaterMeasures;
@@ -19,6 +20,12 @@ public class GetWaterMeasureHandler : IRequestHandler<GetWaterMeasureCommand, Ge
     public async Task<GetWaterMeasureResponse> Handle(GetWaterMeasureCommand request, CancellationToken cancellationToken)
     {
         var waterMeasure = await waterMeasureService.GetWaterMeasureByUserIdAsync(request.UserId);
+
+        //Convert to mililiters
+        waterMeasure.Quantity *= waterMeasure.MeasureTypeNavigation.ConversionFactor;
+        waterMeasure.MeasureType = SeedData.MeasureTypes
+            .FirstOrDefault(m => m.Type == waterMeasure.MeasureTypeNavigation.Type && m.ConversionFactor == 1)!.Id;
+
         var response = new GetWaterMeasureResponse { WaterMeasure = mapper.Map<WaterMeasure>(waterMeasure) };
         return response;
     }

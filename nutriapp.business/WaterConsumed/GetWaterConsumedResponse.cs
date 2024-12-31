@@ -4,6 +4,6 @@ namespace nutriapp.business.WaterConsumed;
 
 public class GetWaterConsumedResponse : BaseCommandResponse
 {
-    public double LitersLeft { get; set; }
-    public double LitersConsumedToday { get; set; }
+    public double MililitersLeft { get; set; }
+    public double MililitersConsumedToday { get; set; }
 }

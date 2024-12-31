@@ -26,6 +26,22 @@ public class CreateFoodConsumedHandler : IRequestHandler<CreateFoodConsumedComma
         var food = await unitOfWork.FoodRepository.GetByIdAsync(request.Food);
         var measures = await unitOfWork.MeasureTypeRepository.GetAll().ToListAsync(cancellationToken);
 
+        //Validate each measure from command.
+        //They must be the same type from previous registered measures of the day
+        var foodConsumedByUserToday = await unitOfWork.FoodConsumedRepository
+            .GetAllIncluding("MeasureTypeNavigation", "CookedMeasureTypeNavigation", "PracticalMeasureTypeNavigation")
+            .Where(fc => fc.User == request.User && fc.UpdatedDate.Date == DateTime.Now.Date)
+            .ToListAsync(cancellationToken);
+
+        var measureType = measures.FirstOrDefault(m => m.Id == request.MeasureType);
+        var isMeasureTypeValid = foodConsumedByUserToday.All(fc => fc.MeasureTypeNavigation.Type == measureType?.Type);
+
+        var cookedMeasureType = measures.FirstOrDefault(m => m.Id == request.CookedMeasureType);
+        var isCookedMeasureTypeValid = foodConsumedByUserToday.All(fc => fc.CookedMeasureTypeNavigation?.Type == cookedMeasureType?.Type);
+
+        var practicalMeasureType = measures.FirstOrDefault(m => m.Id == request.PracticalMeasureType);
+        var isPracticalMeasureTypeValid = foodConsumedByUserToday.All(fc => fc.PracticalMeasureTypeNavigation?.Type == practicalMeasureType?.Type);
+
         response.AddValidationMessages(
         [
             (user == null, "User not found"),
@@ -34,7 +50,10 @@ public class CreateFoodConsumedHandler : IRequestHandler<CreateFoodConsumedComma
             (request.Quantity != 0 && request.CookedQuantity != 0, "Quantity and CookedQuantity are exclusive"),
             (measures.All(m => m.Id != request.MeasureType), "Measure type not found"),
             (request.CookedQuantity > 0 && measures.All(m => m.Id != request.CookedMeasureType), "Cooked measure type not found"),
-            (request.PracticalQuantity > 0 && measures.All(m => m.Id != request.PracticalMeasureType), "Practical measure type not found")
+            (request.PracticalQuantity > 0 && measures.All(m => m.Id != request.PracticalMeasureType), "Practical measure type not found"),
+            (request.Quantity > 0 && !isMeasureTypeValid, "Measure must be the same type from previous registered measures of the day"),
+            (request.CookedQuantity > 0 && !isCookedMeasureTypeValid, "Cooked measure must be the same type from previous registered measures of the day"),
+            (request.PracticalQuantity > 0 && !isPracticalMeasureTypeValid, "Practical measure must be the same type from previous registered measures of the day")
         ]);
 
         if (!response.Success)

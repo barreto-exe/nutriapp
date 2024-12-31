@@ -48,13 +48,13 @@ public class CreateWaterConsumedHandler : IRequestHandler<CreateWaterConsumedCom
         double litersConsumedToday = waterConsumedService
             .GetWaterConsumedToday(request.User)
             .ToList()
-            .Sum(x => x.Quantity / x.MeasureTypeNavigation.ConversionFactor);
+            .Sum(x => x.Quantity * x.MeasureTypeNavigation.ConversionFactor);
 
-        var litersGoal = waterGoal!.Quantity / waterGoal.MeasureTypeNavigation.ConversionFactor;
+        var litersGoal = waterGoal!.Quantity * waterGoal.MeasureTypeNavigation.ConversionFactor;
 
         return new CreateWaterConsumedResponse()
         {
-            LitersLeft = Math.Round(litersGoal - litersConsumedToday, 2),
+            MililitersLeft = Math.Round(litersGoal - litersConsumedToday, 2),
         };
     }
 }
