@@ -27,12 +27,15 @@ public class CreateFoodConsumedHandler : IRequestHandler<CreateFoodConsumedComma
             .GetAllIncluding("MeasureTypes")
             .Where(f => f.Id == request.Food)
             .FirstOrDefaultAsync(cancellationToken);
-        var measures = await unitOfWork.MeasureTypeRepository.GetAll().ToListAsync(cancellationToken);
-
+        var foodGoal = await unitOfWork.FoodMenuMeasureRepository
+            .GetAllIncluding("MeasureTypeNavigation", "CookedMeasureTypeNavigation", "PracticalMeasureTypeNavigation")
+            .Where(fmm => fmm.Food == request!.Food)
+            .OrderByDescending(fmm => fmm.UpdatedDate)
+            .FirstOrDefaultAsync(cancellationToken);
 
         bool isRequestValid = true;
         bool isMeasuresValid = true;
-        if (food != null && user != null) 
+        if (food != null && user != null && foodGoal != null)
         {
             //Validate that quantity, cookedQuantity and practicalQuantity are exclusive to each other
             bool isQuantityValid = request.Quantity.HasValue && request.Quantity.Value > 0;
@@ -42,18 +45,6 @@ public class CreateFoodConsumedHandler : IRequestHandler<CreateFoodConsumedComma
 
             if (isRequestValid)
             {
-                var validCategories = food.MeasureTypes.Select(mt => mt.Type).ToList();
-                var validMeasures = food.MeasureTypes.Select(mt => mt.Id).ToList();
-
-                //Add all measures that are not in the food.MeasureTypes and have the validCategories
-                foreach (var measure in measures)
-                {
-                    if (!validMeasures.Contains(measure.Id) && validCategories.Contains(measure.Type))
-                    {
-                        validMeasures.Add(measure.Id);
-                    }
-                }
-
                 //Null everything if equal to 0
                 if (request?.Quantity == 0) request.Quantity = null;
                 if (request?.MeasureType == 0) request.MeasureType = null;
@@ -62,15 +53,28 @@ public class CreateFoodConsumedHandler : IRequestHandler<CreateFoodConsumedComma
                 if (request?.PracticalQuantity == 0) request.PracticalQuantity = null;
                 if (request?.PracticalMeasureType == 0) request.PracticalMeasureType = null;
 
-                //Measures must exist inside food.MeasureTypes in case they are provided
-                bool isMeasureValid = request?.MeasureType == null || 
-                    (isQuantityValid && validMeasures.Contains(request!.MeasureType!.Value));
-                bool isCookedMeasureValid = request?.CookedMeasureType == null || 
-                    (isCookedQuantityValid && validMeasures.Contains(request!.CookedMeasureType!.Value));
-                bool isPracticalMeasureValid = request?.PracticalMeasureType == null || 
-                    (isPracticalQuantityValid && validMeasures.Contains(request!.PracticalMeasureType!.Value));
+                var measures = await unitOfWork.MeasureTypeRepository.GetAll().ToListAsync(cancellationToken);
+                
+                var resquestNormalMeasureType = measures.Where(m => m.Id == request?.MeasureType).FirstOrDefault()?.Type;
+                var foodGoalNormalMeasureType = measures.Where(m => m.Id == foodGoal.MeasureType).FirstOrDefault()?.Type;
+                
+                var resquestCookedMeasureType = measures.Where(m => m.Id == request?.CookedMeasureType).FirstOrDefault()?.Type;
+                var foodGoalCookedMeasureType = measures.Where(m => m.Id == foodGoal.CookedMeasureType).FirstOrDefault()?.Type;
 
-                isMeasuresValid = isRequestValid && isMeasureValid && isCookedMeasureValid && isPracticalMeasureValid;
+                var resquestPracticalMeasureType = measures.Where(m => m.Id == request?.PracticalMeasureType).FirstOrDefault()?.Type;
+                var foodGoalPracticalMeasureType = measures.Where(m => m.Id == foodGoal.PracticalMeasureType).FirstOrDefault()?.Type;
+
+                //Measures must coincide with the food's goal
+                bool isNormalMeasureValid = request?.MeasureType == null || 
+                    (isQuantityValid && resquestNormalMeasureType == foodGoalNormalMeasureType);
+
+                bool isCookedMeasureValid = request?.CookedMeasureType == null ||
+                    (isCookedQuantityValid & resquestCookedMeasureType == foodGoalCookedMeasureType);
+
+                bool isPracticalMeasureValid = request?.PracticalMeasureType == null ||
+                    (isPracticalQuantityValid && resquestPracticalMeasureType == foodGoalPracticalMeasureType);
+
+                isMeasuresValid = isRequestValid && isNormalMeasureValid && isCookedMeasureValid && isPracticalMeasureValid;
             }
         }
 
@@ -78,8 +82,9 @@ public class CreateFoodConsumedHandler : IRequestHandler<CreateFoodConsumedComma
         [
             (user == null, "User not found"),
             (food == null, "Food not found"),
+            (foodGoal == null, "Food goal not found for that food"),
             (!isRequestValid, "Quantity, CookedQuantity and PracticalQuantity are exclusive to each other"),
-            (!isMeasuresValid, "Measures must be provided, exclusive and correspond for that food")
+            (!isMeasuresValid, "Measures must be provided, exclusive and correspond for that food goal. Also, the food goal must exist.")
         ]);
 
         if (!response.Success)

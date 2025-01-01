@@ -40,24 +40,45 @@ public class GetFoodConsumedHandler : IRequestHandler<GetFoodConsumedCommand, Ge
             .Where(fc => fc.User == request.User && fc.UpdatedDate.Date == request.Date.Date)
             .ToListAsync(cancellationToken);
 
-        var food = await unitOfWork.FoodRepository.GetAll().ToListAsync(cancellationToken);
         var measures = await unitOfWork.MeasureTypeRepository.GetAll().ToListAsync(cancellationToken);
 
-        //Group foodConsumed by food and sum quantities (converted to the same measure type)
+        //Group foodConsumed by food and sum quantities (converted to the same base measure type)
         var foodConsumedGrouped = foodConsumed
-            .GroupBy(fc => fc.FoodNavigation.Name)
-            .Select(g => new models.FoodConsumed
+            .GroupBy(fc => fc.FoodNavigation)
+            .Select(g =>
             {
-                Name = g.Key,
+                double totalQuantity = g.Sum(fc => ConverQuantity(fc.Quantity, fc.MeasureTypeNavigation?.ConversionFactor));
+                var firstMeasureType = g.FirstOrDefault(x => x.MeasureType != null)?.MeasureType;
+                string measure  = GetBaseMeasureName(measures, firstMeasureType);
+                var measureType = GetBaseMeasure(measures, firstMeasureType);
 
-                TotalQuantity = g.Sum(fc => ConverQuantity(fc.Quantity, fc.MeasureTypeNavigation?.ConversionFactor)),
-                Measure = GetUnitMeasureName(measures, g.FirstOrDefault()?.MeasureType),
+                double totalCookedQuantity = g.Sum(fc => ConverQuantity(fc.CookedQuantity, fc.CookedMeasureTypeNavigation?.ConversionFactor));
+                var firstCookedMeasureType = g.FirstOrDefault(x => x.CookedMeasureType != null)?.CookedMeasureType;
+                string cookedMeasure  = GetBaseMeasureName(measures, firstCookedMeasureType);
+                var cookedMeasureType = GetBaseMeasure(measures, firstCookedMeasureType);
 
-                TotalCookedQuantity = g.Sum(fc => ConverQuantity(fc.CookedQuantity, fc.CookedMeasureTypeNavigation?.ConversionFactor)),
-                CookedMeasure = GetUnitMeasureName(measures, g.FirstOrDefault()?.CookedMeasureType),
+                double totalPracticalQuantity = g.Sum(fc => ConverQuantity(fc.PracticalQuantity, fc.PracticalMeasureTypeNavigation?.ConversionFactor));
+                var firstPracticalMeasureType = g.FirstOrDefault(x => x.PracticalMeasureType != null)?.PracticalMeasureType;
+                string practicalMeasure  = GetBaseMeasureName(measures, firstPracticalMeasureType);
+                var practicalMeasureType = GetBaseMeasure(measures, firstPracticalMeasureType);
 
-                TotalPracticalQuantity = g.Sum(fc => ConverQuantity(fc.PracticalQuantity, fc.PracticalMeasureTypeNavigation?.ConversionFactor)),
-                PracticalMeasure = GetUnitMeasureName(measures, g.FirstOrDefault()?.PracticalMeasureType)
+                var foo = new models.FoodConsumed
+                {
+                    Name = g.Key.Name,
+
+                    TotalQuantity = totalQuantity,
+                    Measure = measure,
+
+                    TotalCookedQuantity = totalCookedQuantity,
+                    CookedMeasure = cookedMeasure,
+
+                    TotalPracticalQuantity = totalPracticalQuantity,
+                    PracticalMeasure = practicalMeasure,
+
+                    EquivalentUnits = GetEquivalentUnits(g.Key, totalQuantity, totalCookedQuantity, totalPracticalQuantity)
+                };
+
+                return foo;
             });
 
         response.FoodConsumed = foodConsumedGrouped.ToList();
@@ -82,7 +103,7 @@ public class GetFoodConsumedHandler : IRequestHandler<GetFoodConsumedCommand, Ge
 
             return quantity.Value * ConversionFactor.Value;
         }
-        static string GetUnitMeasureName(List<MeasureType> measures, int? measureTypeId)
+        static string GetBaseMeasureName(List<MeasureType> measures, int? measureTypeId)
         {
             //Validate null to avoid null reference exception
             var measureType = measures.FirstOrDefault(m => m.Id == measureTypeId);
@@ -94,6 +115,52 @@ public class GetFoodConsumedHandler : IRequestHandler<GetFoodConsumedCommand, Ge
             //Get the measure type with conversion factor 1
             var measureType1 = measures.FirstOrDefault(m => m.Type == measureType.Type && m.ConversionFactor == 1);
             return measureType1?.Abbreviation ?? "";
+        }
+        static MeasureType? GetBaseMeasure(List<MeasureType> measures, int? measureTypeId)
+        {
+            //Validate null to avoid null reference exception
+            var measureType = measures.FirstOrDefault(m => m.Id == measureTypeId);
+            if (measureType == null)
+            {
+                return null;
+            }
+
+            //Get the measure type with conversion factor 1
+            var measureType1 = measures.FirstOrDefault(m => m.Type == measureType.Type && m.ConversionFactor == 1);
+            return measureType1;
+        }
+        double GetEquivalentUnits(Food food, double totalQuantity, double totalCookedQuantity, double totalPracticalQuantity)
+        {
+            var foodGoal = unitOfWork.FoodMenuMeasureRepository
+                .GetAllIncluding("MeasureTypeNavigation", "CookedMeasureTypeNavigation", "PracticalMeasureTypeNavigation")
+                .Where(fmm => fmm.Food == food.Id)
+                .FirstOrDefault();
+
+            if (foodGoal == null)
+            {
+                return 0;
+            }
+
+            var quatityGoal = ConverQuantity(foodGoal.Quantity, foodGoal.MeasureTypeNavigation?.ConversionFactor);
+            var cookedQuantityGoal = ConverQuantity(foodGoal.CookedQuantity, foodGoal.CookedMeasureTypeNavigation?.ConversionFactor);
+            var practicalQuantityGoal = ConverQuantity(foodGoal.PracticalQuantity, foodGoal.PracticalMeasureTypeNavigation?.ConversionFactor);
+
+            //Sum to total if different from 0
+            double total = 0;
+            if (quatityGoal != 0)
+            {
+                total += totalQuantity / quatityGoal;
+            }
+            if (cookedQuantityGoal != 0)
+            {
+                total += totalCookedQuantity / cookedQuantityGoal;
+            }
+            if (practicalQuantityGoal != 0)
+            {
+                total += totalPracticalQuantity / practicalQuantityGoal;
+            }
+
+            return Math.Round(total, 2);
         }
     }
 }

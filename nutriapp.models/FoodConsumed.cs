@@ -9,4 +9,5 @@ public class FoodConsumed
     public string? CookedMeasure { get; set; }
     public double? TotalPracticalQuantity { get; set; }
     public string? PracticalMeasure { get; set; }
+    public double EquivalentUnits { get; set; }
 }
