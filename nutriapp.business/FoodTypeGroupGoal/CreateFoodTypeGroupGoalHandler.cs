@@ -5,22 +5,22 @@ using nutriapp.infrastructure.Interfaces;
 using GroupUnitMenuEntity = nutriapp.core.Entities.GroupUnitMenu;
 
 
-namespace nutriapp.business.GroupUnitMenu
+namespace nutriapp.business.FoodTypeGroupGoal
 {
-    public class CreateGroupUnitMenuHandler : IRequestHandler<CreateGroupUnitMenuCommand, CreateGroupUnitMenuResponse>
+    public class CreateFoodTypeGroupGoalHandler : IRequestHandler<CreateFoodTypeGroupGoalCommand, CreateFoodTypeGroupGoalResponse>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
-        public CreateGroupUnitMenuHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public CreateFoodTypeGroupGoalHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
-        public async Task<CreateGroupUnitMenuResponse> Handle(CreateGroupUnitMenuCommand request, CancellationToken cancellationToken)
+        public async Task<CreateFoodTypeGroupGoalResponse> Handle(CreateFoodTypeGroupGoalCommand request, CancellationToken cancellationToken)
         {
-            var response = new CreateGroupUnitMenuResponse();
+            var response = new CreateFoodTypeGroupGoalResponse();
 
             var mealType = await unitOfWork.MealTypeRepository.GetByIdAsync(request.MealType);
             var foodTypeGroup = await unitOfWork.FoodTypeGroupRepository.GetByIdAsync(request.FoodTypeGroup);

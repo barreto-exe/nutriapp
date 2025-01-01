@@ -4,22 +4,22 @@ using nutriapp.business.Services;
 using nutriapp.infrastructure.Interfaces;
 using UnitMenuEntity = nutriapp.core.Entities.UnitMenu;
 
-namespace nutriapp.business.UnitMenu;
+namespace nutriapp.business.FoodTypeGoal;
 
-public class CreateUnitMenuHandler : IRequestHandler<CreateUnitMenuCommand, CreateUnitMenuResponse>
+public class CreateFoodTypeGoalHandler : IRequestHandler<CreateFoodTypeGoalCommand, CreateFoodTypeGoalResponse>
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
 
-    public CreateUnitMenuHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateFoodTypeGoalHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
     }
 
-    public async Task<CreateUnitMenuResponse> Handle(CreateUnitMenuCommand request, CancellationToken cancellationToken)
+    public async Task<CreateFoodTypeGoalResponse> Handle(CreateFoodTypeGoalCommand request, CancellationToken cancellationToken)
     {
-        var response = new CreateUnitMenuResponse();
+        var response = new CreateFoodTypeGoalResponse();
 
         var user = await unitOfWork.UserRepository.GetByIdAsync(request.User);
         var foodType = await unitOfWork.FoodTypeRepository.GetByIdAsync(request.FoodType);

@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using nutriapp.business.GroupUnitMenu;
+using nutriapp.business.FoodTypeGroupGoal;
 
 namespace nutriapp.api.Controllers;
 
-public class FoodGroupUnitMenu(IMediator mediator) : MyControllerBase(mediator)
+public class FoodTypeGroupGoal(IMediator mediator) : MyControllerBase(mediator)
 {
     [HttpPost]
-    public async Task<IActionResult> CreateGroupUnitMenu(CreateGroupUnitMenuCommand command)
+    public async Task<IActionResult> CreateFoodGroupGoal(CreateFoodTypeGroupGoalCommand command)
     {
         var response = await mediator.Send(command);
 
@@ -20,9 +20,9 @@ public class FoodGroupUnitMenu(IMediator mediator) : MyControllerBase(mediator)
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetGroupUnitMenu(int userId)
+    public async Task<IActionResult> GetFoodGroupGoal(int userId)
     {
-        var command = new GetGroupUnitMenuCommand { User = userId };
+        var command = new GetFoodTypeGroupGoalCommand { User = userId };
         var response = await mediator.Send(command);
 
         if (response == null || !response.Success) return NotFound();

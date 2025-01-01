@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace nutriapp.business.UnitMenu;
+namespace nutriapp.business.FoodTypeGoal;
 
-public class CreateUnitMenuCommand : IRequest<CreateUnitMenuResponse>
+public class CreateFoodTypeGoalCommand : IRequest<CreateFoodTypeGoalResponse>
 {
     public int User { get; set; }
     public int FoodType { get; set; }
