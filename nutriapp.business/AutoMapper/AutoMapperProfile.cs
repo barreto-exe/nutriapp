@@ -28,15 +28,15 @@ public class AutoMapperProfile : Profile
 
         //Entities to Models
         CreateMap<FoodTypeGroup, models.FoodTypeGroup>();
-        CreateMap<GroupUnitMenuEntity, models.GroupUnitMenu>()
+        CreateMap<GroupUnitMenuEntity, models.FoodTypeGroupGoalDetail>()
             .ForMember(dest => dest.MealType, opt => opt.MapFrom(src => src.MealTypeNavigation))
             .ForMember(dest => dest.FoodTypeGroup, opt => opt.MapFrom(src => src.FoodTypeGroupNavigation));
         CreateMap<MealType, models.MealType>()
-            .ForMember(dest => dest.FoodTypeGroupMenu, opt => opt.MapFrom(src => src.GroupUnitMenus));
-        CreateMap<GroupUnitMenuEntity, models.FoodTypeGroupQuantity>()
+            .ForMember(dest => dest.FoodGroupGoals, opt => opt.MapFrom(src => src.GroupUnitMenus));
+        CreateMap<GroupUnitMenuEntity, models.FoodTypeGroupGoal>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FoodTypeGroupNavigation.Name));
         CreateMap<WaterMeasure, models.WaterMeasure>();
-        CreateMap<UnitMenuEntity, models.FoodTypeQuantity>()
+        CreateMap<UnitMenuEntity, models.FoodTypeGoal>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FoodTypeNavigation.Name));
     }
 }

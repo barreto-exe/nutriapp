@@ -1,9 +1,9 @@
 ﻿using nutriapp.business.Base;
-using GroupUnitMenuModel = nutriapp.models.GroupUnitMenu;
+using nutriapp.models;
 
 namespace nutriapp.business.FoodTypeGroupGoal;
 
 public class GetFoodTypeGroupGoalResponse : BaseCommandResponse
 {
-    public IEnumerable<GroupUnitMenuModel>? GroupUnitMenu { get; set; }
+    public IEnumerable<FoodTypeGroupGoalDetail>? Goals { get; set; }
 }

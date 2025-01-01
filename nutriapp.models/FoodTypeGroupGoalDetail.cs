@@ -1,6 +1,6 @@
 ﻿namespace nutriapp.models;
 
-public class GroupUnitMenu
+public class FoodTypeGroupGoalDetail
 {
     public int Id { get; set; }
     public MealType MealType { get; set; }

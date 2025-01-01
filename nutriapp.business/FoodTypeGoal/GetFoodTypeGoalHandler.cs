@@ -41,7 +41,7 @@ public class GetFoodTypeGoalHandler : IRequestHandler<GetFoodTypeGoalCommand, Ge
             .Select(x => x.OrderByDescending(y => y.UpdatedDate).FirstOrDefault())
             .ToListAsync(cancellationToken);
 
-        response.UnitMenu = mapper.Map<IEnumerable<FoodTypeQuantity>>(unitMenu);
+        response.Goals = mapper.Map<IEnumerable<models.FoodTypeGoal>>(unitMenu);
 
         return response;
     }

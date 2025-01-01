@@ -1,7 +1,7 @@
 ﻿namespace nutriapp.models;
 
-public class FoodTypeQuantity
+public class FoodTypeGroupGoal
 {
     public string Name { get; set; }
-    public int MaxQuantity { get; set; }
+    public int Quantity { get; set; }
 }

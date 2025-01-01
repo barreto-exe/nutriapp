@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using nutriapp.business.Services;
 using nutriapp.infrastructure.Interfaces;
-using GroupUnitMenuModel = nutriapp.models.GroupUnitMenu;
+using GroupUnitMenuModel = nutriapp.models.FoodTypeGroupGoalDetail;
 
 namespace nutriapp.business.FoodTypeGroupGoal;
 
@@ -42,7 +42,7 @@ public class GetFoodTypeGroupGoalHandler : IRequestHandler<GetFoodTypeGroupGoalC
             .Select(gum => gum.OrderByDescending(g => g.UpdatedDate).FirstOrDefault())
             .ToListAsync(cancellationToken);
 
-        response.GroupUnitMenu = mapper.Map<List<GroupUnitMenuModel>>(groupUnitMenuList);
+        response.Goals = mapper.Map<List<GroupUnitMenuModel>>(groupUnitMenuList);
 
         return response;
     }
