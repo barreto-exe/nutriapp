@@ -4,22 +4,22 @@ using Microsoft.EntityFrameworkCore;
 using nutriapp.business.Services;
 using nutriapp.infrastructure.Interfaces;
 
-namespace nutriapp.business.FoodGoal;
+namespace nutriapp.business.FoodMenuMeasure;
 
-public class GetFoodGoalHandler : IRequestHandler<GetFoodGoalCommand, GetFoodGoalResponse>
+public class GetFoodMenuMeasureHandler : IRequestHandler<GetFoodMenuMeasurelCommand, GetFoodMenuMeasureResponse>
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
 
-    public GetFoodGoalHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetFoodMenuMeasureHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
     }
 
-    public async Task<GetFoodGoalResponse> Handle(GetFoodGoalCommand request, CancellationToken cancellationToken)
+    public async Task<GetFoodMenuMeasureResponse> Handle(GetFoodMenuMeasurelCommand request, CancellationToken cancellationToken)
     {
-        var response = new GetFoodGoalResponse();
+        var response = new GetFoodMenuMeasureResponse();
 
         var user = await unitOfWork.UserRepository.GetByIdAsync(request.User);
 

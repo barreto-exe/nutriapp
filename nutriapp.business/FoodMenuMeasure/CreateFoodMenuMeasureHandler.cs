@@ -4,22 +4,22 @@ using nutriapp.business.Services;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 
-namespace nutriapp.business.FoodGoal;
+namespace nutriapp.business.FoodMenuMeasure;
 
-public class CreateFoodGoalHandler : IRequestHandler<CreateFoodGoalCommand, CreateFoodGoalResponse>
+public class CreateFoodMenuMeasureHandler : IRequestHandler<CreateFoodMenuMeasureCommand, CreateFoodMenuMeasureResponse>
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
 
-    public CreateFoodGoalHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateFoodMenuMeasureHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
     }
 
-    public async Task<CreateFoodGoalResponse> Handle(CreateFoodGoalCommand request, CancellationToken cancellationToken)
+    public async Task<CreateFoodMenuMeasureResponse> Handle(CreateFoodMenuMeasureCommand request, CancellationToken cancellationToken)
     {
-        var response = new CreateFoodGoalResponse();
+        var response = new CreateFoodMenuMeasureResponse();
 
         //If CookedQuantity and PracticalQuantity are 0, assign them to null
         if (request.CookedQuantity == 0)
@@ -60,7 +60,7 @@ public class CreateFoodGoalHandler : IRequestHandler<CreateFoodGoalCommand, Crea
             return response;
         }
 
-        var foodGoal = mapper.Map<FoodMenuMeasure>(request);
+        var foodGoal = mapper.Map<core.Entities.FoodMenuMeasure>(request);
 
         foodGoal.UpdatedDate = DateTime.Now;
 

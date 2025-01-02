@@ -10,7 +10,8 @@ using nutriapp.core.Entities;
 using GroupUnitMenuEntity = nutriapp.core.Entities.GroupUnitMenu;
 using UnitMenuEntity = nutriapp.core.Entities.UnitMenu;
 using WaterConsumedEntity = nutriapp.core.Entities.WaterConsumed;
-using nutriapp.business.FoodGoal;
+using FoodMenuMeasureEntity = nutriapp.core.Entities.FoodMenuMeasure;
+using nutriapp.business.FoodMenuMeasure;
 
 namespace nutriapp.business.AutoMapper;
 
@@ -26,7 +27,7 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateFoodTypeGroupGoalCommand, GroupUnitMenuEntity>();
         CreateMap<CreateFoodTypeGoalCommand, UnitMenuEntity>();
         CreateMap<CreateFoodConsumedCommand, FoodConsumed>();
-        CreateMap<CreateFoodGoalCommand, FoodMenuMeasure>();
+        CreateMap<CreateFoodMenuMeasureCommand, FoodMenuMeasureEntity>();
 
 
         //Entities to Models
@@ -41,10 +42,10 @@ public class AutoMapperProfile : Profile
         CreateMap<WaterMeasure, models.WaterMeasure>();
         CreateMap<UnitMenuEntity, models.FoodTypeGoal>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FoodTypeNavigation.Name));
-        CreateMap<FoodMenuMeasure, models.FoodGoal>()
+        CreateMap<core.Entities.FoodMenuMeasure, models.FoodGoal>()
             .ForMember(dest => dest.Food, opt => opt.MapFrom(src => src.FoodNavigation.Name))
             .ForMember(dest => dest.MeasureType, opt => opt.MapFrom(src => src.MeasureTypeNavigation.Abbreviation))
-            .ForMember(dest => dest.CookedMeasureType, opt => opt.MapFrom(src => src.CookedMeasureTypeNavigation.Abbreviation))
-            .ForMember(dest => dest.PracticalMeasureType, opt => opt.MapFrom(src => src.PracticalMeasureTypeNavigation.Abbreviation));
+            .ForMember<string>(dest => dest.CookedMeasureType, opt => opt.MapFrom(src => src.CookedMeasureTypeNavigation.Abbreviation))
+            .ForMember<string>(dest => dest.PracticalMeasureType, opt => opt.MapFrom(src => src.PracticalMeasureTypeNavigation.Abbreviation));
     }
 }
