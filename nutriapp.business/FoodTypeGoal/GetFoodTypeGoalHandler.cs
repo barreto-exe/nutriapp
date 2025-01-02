@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using nutriapp.business.Interfaces;
 using nutriapp.business.Services;
+using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 using nutriapp.models;
 
@@ -11,11 +13,13 @@ public class GetFoodTypeGoalHandler : IRequestHandler<GetFoodTypeGoalCommand, Ge
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
+    private readonly IFoodConsumedService foodConsumedService;
 
-    public GetFoodTypeGoalHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetFoodTypeGoalHandler(IUnitOfWork unitOfWork, IMapper mapper, IFoodConsumedService foodConsumedService)
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
+        this.foodConsumedService = foodConsumedService;
     }
 
     public async Task<GetFoodTypeGoalResponse> Handle(GetFoodTypeGoalCommand request, CancellationToken cancellationToken)
@@ -36,12 +40,29 @@ public class GetFoodTypeGoalHandler : IRequestHandler<GetFoodTypeGoalCommand, Ge
 
         var unitMenu = await unitOfWork.UnitMenuRepository
             .GetAllIncluding("FoodTypeNavigation")
-            .Where(x => x.User == request.User && x.UpdatedDate.Date == request.Date.Date)
+            .Where(x => x.User == request.User && x.UpdatedDate.Date <= request.Date.Date)
             .GroupBy(x => x.FoodType)
             .Select(x => x.OrderByDescending(y => y.UpdatedDate).FirstOrDefault())
             .ToListAsync(cancellationToken);
 
-        response.Goals = mapper.Map<IEnumerable<models.FoodTypeGoal>>(unitMenu);
+
+        response.Goals = mapper.Map<List<models.FoodTypeGoal>>(unitMenu);
+        response.Goals.ForEach(x => x.LeftQuantity = x.MaxQuantity);
+
+        var food = await unitOfWork.FoodRepository.GetAllIncluding("FoodTypeNavigation").ToListAsync(cancellationToken);
+        var foodConsumed = await foodConsumedService.GetFoodConsumedAsync(request.User, request.Date, cancellationToken);
+
+        foreach(var consumed in foodConsumed)
+        {
+            var foodType = food.FirstOrDefault(x => x.Id == consumed.FoodId)!.FoodTypeNavigation;
+            var goal = response.Goals.FirstOrDefault(x => x.FoodType == foodType.Id);
+
+            if (goal != null)
+            {
+                goal.ConsumedQuantity += consumed.EquivalentUnits;
+                goal.LeftQuantity = goal.MaxQuantity - goal.ConsumedQuantity;
+            }
+        }
 
         return response;
     }

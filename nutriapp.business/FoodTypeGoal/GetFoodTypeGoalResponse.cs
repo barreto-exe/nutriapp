@@ -5,5 +5,5 @@ namespace nutriapp.business.FoodTypeGoal;
 
 public class GetFoodTypeGoalResponse : BaseCommandResponse
 {
-    public IEnumerable<models.FoodTypeGoal> Goals { get; set; }
+    public List<models.FoodTypeGoal> Goals { get; set; }
 }
