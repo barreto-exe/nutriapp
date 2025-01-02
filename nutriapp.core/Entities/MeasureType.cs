@@ -12,7 +12,11 @@ public partial class MeasureType : BaseEntity
 
     public string Type { get; set; } = null!;
 
-    public virtual ICollection<FoodAtFridge> FoodAtFridges { get; set; } = new List<FoodAtFridge>();
+    public virtual ICollection<FoodAtFridge> FoodAtFridgeCookedMeasureTypeNavigations { get; set; } = new List<FoodAtFridge>();
+
+    public virtual ICollection<FoodAtFridge> FoodAtFridgeMeasureTypeNavigations { get; set; } = new List<FoodAtFridge>();
+
+    public virtual ICollection<FoodAtFridge> FoodAtFridgePracticalMeasureTypeNavigations { get; set; } = new List<FoodAtFridge>();
 
     public virtual ICollection<FoodConsumed> FoodConsumedCookedMeasureTypeNavigations { get; set; } = new List<FoodConsumed>();
 

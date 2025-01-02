@@ -95,6 +95,7 @@ public partial class NutriAppContext : DbContext
                     {
                         j.HasKey("Food", "MeasureType").HasName("PK__Measured__92FAF591EA351E7B");
                         j.ToTable("MeasuredBy");
+                        j.HasIndex(new[] { "MeasureType" }, "IX_MeasuredBy_MeasureType");
                         j.HasData(SeedData.MeasuredBy);
                     });
         });
@@ -111,17 +112,26 @@ public partial class NutriAppContext : DbContext
 
             entity.HasIndex(e => e.User, "IX_FoodAtFridge_User");
 
-            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.UpdatedDate)
+                .HasPrecision(0)
+                .HasDefaultValueSql("(getdate())");
+
+            entity.HasOne(d => d.CookedMeasureTypeNavigation).WithMany(p => p.FoodAtFridgeCookedMeasureTypeNavigations)
+                .HasForeignKey(d => d.CookedMeasureType)
+                .HasConstraintName("FK__FoodAtFri__Cooke__151B244E");
 
             entity.HasOne(d => d.FoodNavigation).WithMany(p => p.FoodAtFridges)
                 .HasForeignKey(d => d.Food)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__foodatfrid__Food__5535A963");
 
-            entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.FoodAtFridges)
+            entity.HasOne(d => d.MeasureTypeNavigation).WithMany(p => p.FoodAtFridgeMeasureTypeNavigations)
                 .HasForeignKey(d => d.MeasureType)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__foodatfri__Measu__534D60F1");
+
+            entity.HasOne(d => d.PracticalMeasureTypeNavigation).WithMany(p => p.FoodAtFridgePracticalMeasureTypeNavigations)
+                .HasForeignKey(d => d.PracticalMeasureType)
+                .HasConstraintName("FK__FoodAtFri__Pract__160F4887");
 
             entity.HasOne(d => d.UserNavigation).WithMany(p => p.FoodAtFridges)
                 .HasForeignKey(d => d.User)
