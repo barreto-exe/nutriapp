@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using nutriapp.business.FoodMenuMeasure;
+using nutriapp.business.FoodAtFridge;
 
 namespace nutriapp.api.Controllers;
 
-public class FoodMenuMeasure(IMediator mediator) : MyControllerBase(mediator)
+public class FoodAtFridge(IMediator mediator) : MyControllerBase(mediator)
 {
     [HttpPost]
-    public async Task<IActionResult> CreateFoodGoal(CreateFoodMenuMeasureCommand command)
+    public async Task<IActionResult> CreateFoodAtFridge(CreateFoodAtFridgeCommand command)
     {
         var response = await mediator.Send(command);
 
@@ -20,7 +20,7 @@ public class FoodMenuMeasure(IMediator mediator) : MyControllerBase(mediator)
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetFoodGoal([FromQuery] GetFoodMenuMeasureCommand command)
+    public async Task<IActionResult> GetFoodAtFridge([FromQuery] GetFoodAtFridgeCommand command)
     {
         var response = await mediator.Send(command);
 

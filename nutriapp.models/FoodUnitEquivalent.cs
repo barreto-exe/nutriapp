@@ -1,6 +1,6 @@
 ﻿namespace nutriapp.models;
 
-public class FoodConsumed
+public class FoodUnitEquivalent
 {
     public int FoodId { get; set; }
     public string Name { get; set; }

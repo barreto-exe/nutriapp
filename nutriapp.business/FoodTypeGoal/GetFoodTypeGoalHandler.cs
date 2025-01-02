@@ -6,6 +6,7 @@ using nutriapp.business.Services;
 using nutriapp.core.Entities;
 using nutriapp.infrastructure.Interfaces;
 using nutriapp.models;
+using static nutriapp.business.Services.FoodAnalyticsService;
 
 namespace nutriapp.business.FoodTypeGoal;
 
@@ -13,9 +14,9 @@ public class GetFoodTypeGoalHandler : IRequestHandler<GetFoodTypeGoalCommand, Ge
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
-    private readonly IFoodConsumedService foodConsumedService;
+    private readonly IFoodAnalyticsService foodConsumedService;
 
-    public GetFoodTypeGoalHandler(IUnitOfWork unitOfWork, IMapper mapper, IFoodConsumedService foodConsumedService)
+    public GetFoodTypeGoalHandler(IUnitOfWork unitOfWork, IMapper mapper, IFoodAnalyticsService foodConsumedService)
     {
         this.unitOfWork = unitOfWork;
         this.mapper = mapper;
@@ -50,7 +51,7 @@ public class GetFoodTypeGoalHandler : IRequestHandler<GetFoodTypeGoalCommand, Ge
         response.Goals.ForEach(x => x.LeftQuantity = x.MaxQuantity);
 
         var food = await unitOfWork.FoodRepository.GetAllIncluding("FoodTypeNavigation").ToListAsync(cancellationToken);
-        var foodConsumed = await foodConsumedService.GetFoodConsumedAsync(request.User, request.Date, cancellationToken);
+        var foodConsumed = await foodConsumedService.GetFoodSumEquivalentAsync(FoodDataSource.FoodConsumed, request.User, request.Date, cancellationToken);
 
         foreach(var consumed in foodConsumed)
         {

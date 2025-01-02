@@ -5,5 +5,5 @@ namespace nutriapp.business.FoodsConsumed;
 
 public class GetFoodConsumedResponse : BaseCommandResponse
 {
-    public List<FoodConsumed> FoodConsumed { get; set; }
+    public List<FoodUnitEquivalent> FoodConsumed { get; set; }
 }

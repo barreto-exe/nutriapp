@@ -11,7 +11,9 @@ using GroupUnitMenuEntity = nutriapp.core.Entities.GroupUnitMenu;
 using UnitMenuEntity = nutriapp.core.Entities.UnitMenu;
 using WaterConsumedEntity = nutriapp.core.Entities.WaterConsumed;
 using FoodMenuMeasureEntity = nutriapp.core.Entities.FoodMenuMeasure;
+using FoodAtFridgeEntity = nutriapp.core.Entities.FoodAtFridge;
 using nutriapp.business.FoodMenuMeasure;
+using nutriapp.business.FoodAtFridge;
 
 namespace nutriapp.business.AutoMapper;
 
@@ -28,7 +30,7 @@ public class AutoMapperProfile : Profile
         CreateMap<CreateFoodTypeGoalCommand, UnitMenuEntity>();
         CreateMap<CreateFoodConsumedCommand, FoodConsumed>();
         CreateMap<CreateFoodMenuMeasureCommand, FoodMenuMeasureEntity>();
-
+        CreateMap<CreateFoodAtFridgeCommand, FoodAtFridgeEntity>();
 
         //Entities to Models
         CreateMap<FoodTypeGroup, models.FoodTypeGroup>();

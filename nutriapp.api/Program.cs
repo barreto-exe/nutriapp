@@ -21,7 +21,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IWaterMeasureService, WaterMeasureService>();
 builder.Services.AddTransient<IWaterConsumedService, WaterConsumedService>();
-builder.Services.AddTransient<IFoodConsumedService, FoodConsumedService>();
+builder.Services.AddTransient<IFoodAnalyticsService, FoodAnalyticsService>();
 
 //Automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));

@@ -1,6 +1,8 @@
-﻿namespace nutriapp.core.Entities;
+﻿using nutriapp.core.Interfaces;
 
-public partial class FoodAtFridge : BaseEntity
+namespace nutriapp.core.Entities;
+
+public partial class FoodAtFridge : BaseEntity, IConvertibleFoodEntity
 {
     public int Id { get; set; }
 

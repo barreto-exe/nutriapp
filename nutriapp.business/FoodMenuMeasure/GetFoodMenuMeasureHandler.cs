@@ -6,7 +6,7 @@ using nutriapp.infrastructure.Interfaces;
 
 namespace nutriapp.business.FoodMenuMeasure;
 
-public class GetFoodMenuMeasureHandler : IRequestHandler<GetFoodMenuMeasurelCommand, GetFoodMenuMeasureResponse>
+public class GetFoodMenuMeasureHandler : IRequestHandler<GetFoodMenuMeasureCommand, GetFoodMenuMeasureResponse>
 {
     private readonly IUnitOfWork unitOfWork;
     private readonly IMapper mapper;
@@ -17,7 +17,7 @@ public class GetFoodMenuMeasureHandler : IRequestHandler<GetFoodMenuMeasurelComm
         this.mapper = mapper;
     }
 
-    public async Task<GetFoodMenuMeasureResponse> Handle(GetFoodMenuMeasurelCommand request, CancellationToken cancellationToken)
+    public async Task<GetFoodMenuMeasureResponse> Handle(GetFoodMenuMeasureCommand request, CancellationToken cancellationToken)
     {
         var response = new GetFoodMenuMeasureResponse();
 
