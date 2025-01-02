@@ -75,7 +75,7 @@ public class GetFoodConsumedHandler : IRequestHandler<GetFoodConsumedCommand, Ge
                     TotalPracticalQuantity = totalPracticalQuantity,
                     PracticalMeasure = practicalMeasure,
 
-                    EquivalentUnits = GetEquivalentUnits(g.Key, totalQuantity, totalCookedQuantity, totalPracticalQuantity)
+                    EquivalentUnits = GetEquivalentUnits(g.Key, totalQuantity, totalCookedQuantity, totalPracticalQuantity, request.Date)
                 };
 
                 return foo;
@@ -129,11 +129,11 @@ public class GetFoodConsumedHandler : IRequestHandler<GetFoodConsumedCommand, Ge
             var measureType1 = measures.FirstOrDefault(m => m.Type == measureType.Type && m.ConversionFactor == 1);
             return measureType1;
         }
-        double GetEquivalentUnits(Food food, double totalQuantity, double totalCookedQuantity, double totalPracticalQuantity)
+        double GetEquivalentUnits(Food food, double totalQuantity, double totalCookedQuantity, double totalPracticalQuantity, DateTime requestDate)
         {
             var foodGoal = unitOfWork.FoodMenuMeasureRepository
                 .GetAllIncluding("MeasureTypeNavigation", "CookedMeasureTypeNavigation", "PracticalMeasureTypeNavigation")
-                .Where(fmm => fmm.Food == food.Id)
+                .Where(fmm => fmm.Food == food.Id && fmm.UpdatedDate.Date <= requestDate.Date.Date)
                 .FirstOrDefault();
 
             if (foodGoal == null)
