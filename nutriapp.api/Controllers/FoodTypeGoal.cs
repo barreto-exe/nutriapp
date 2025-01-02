@@ -20,9 +20,8 @@ public class FoodTypeGoal(IMediator mediator) : MyControllerBase(mediator)
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetFoodTypeGoal(int userId)
+    public async Task<IActionResult> GetFoodTypeGoal([FromQuery] GetFoodTypeGoalCommand command)
     {
-        var command = new GetFoodTypeGoalCommand { User = userId };
         var response = await mediator.Send(command);
 
         if (response == null || !response.Success) return NotFound();

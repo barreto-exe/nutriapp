@@ -36,7 +36,7 @@ public class GetFoodTypeGoalHandler : IRequestHandler<GetFoodTypeGoalCommand, Ge
 
         var unitMenu = await unitOfWork.UnitMenuRepository
             .GetAllIncluding("FoodTypeNavigation")
-            .Where(x => x.User == request.User)
+            .Where(x => x.User == request.User && x.UpdatedDate.Date == request.Date.Date)
             .GroupBy(x => x.FoodType)
             .Select(x => x.OrderByDescending(y => y.UpdatedDate).FirstOrDefault())
             .ToListAsync(cancellationToken);
