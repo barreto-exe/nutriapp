@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nutriapp.business.FoodAtFridge;
 
@@ -6,6 +7,7 @@ namespace nutriapp.api.Controllers;
 
 public class FoodAtFridge(IMediator mediator) : MyControllerBase(mediator)
 {
+
     [HttpPost]
     public async Task<IActionResult> CreateFoodAtFridge(CreateFoodAtFridgeCommand command)
     {
