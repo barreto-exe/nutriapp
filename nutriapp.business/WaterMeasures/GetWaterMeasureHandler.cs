@@ -19,7 +19,7 @@ public class GetWaterMeasureHandler : IRequestHandler<GetWaterMeasureCommand, Ge
 
     public async Task<GetWaterMeasureResponse> Handle(GetWaterMeasureCommand request, CancellationToken cancellationToken)
     {
-        var waterMeasure = await waterMeasureService.GetWaterMeasureByUserIdAsync(request.UserId);
+        var waterMeasure = await waterMeasureService.GetWaterMeasureByUserIdAsync(request.User);
 
         //Convert to mililiters
         waterMeasure.Quantity *= waterMeasure.MeasureTypeNavigation.ConversionFactor;

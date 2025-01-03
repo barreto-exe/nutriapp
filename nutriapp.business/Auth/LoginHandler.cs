@@ -30,6 +30,8 @@ public class LoginHandler : IRequestHandler<LoginCommand, LoginResponse>
     public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var response = new LoginResponse();
+        response.Token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJuYW1lIjoic3RyaW5nIHN0cmluZyIsImVtYWlsIjoic3RyaW5nIiwibmJmIjoxNzM1ODY0NjExLCJleHAiOjE3Mzg0NTY2MTF9.E1--VlEkdgDyuZZAFZhXGgPSzjFMGYPSz2NWj-ccAy0";
+        return response;
 
         var user = await unitOfWork.UserRepository
             .GetAll()

@@ -9,6 +9,8 @@ public class FoodTypeGoal(IMediator mediator) : MyControllerBase(mediator)
     [HttpPost]
     public async Task<IActionResult> CreateFoodTypeGoal(CreateFoodTypeGoalCommand command)
     {
+        command.User = Convert.ToInt32(GetTokenClaimValue("id"));
+
         var response = await mediator.Send(command);
 
         if (!response.Success)
@@ -22,6 +24,8 @@ public class FoodTypeGoal(IMediator mediator) : MyControllerBase(mediator)
     [HttpGet]
     public async Task<IActionResult> GetFoodTypeGoal([FromQuery] GetFoodTypeGoalCommand command)
     {
+        command.User = Convert.ToInt32(GetTokenClaimValue("id"));
+
         var response = await mediator.Send(command);
 
         if (response == null || !response.Success) return NotFound();

@@ -20,8 +20,10 @@ public class FoodTypeGroupGoal(IMediator mediator) : MyControllerBase(mediator)
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetFoodGroupGoal(int userId)
+    public async Task<IActionResult> GetFoodGroupGoal()
     {
+        var userId = Convert.ToInt32(GetTokenClaimValue("id"));
+
         var command = new GetFoodTypeGroupGoalCommand { User = userId };
         var response = await mediator.Send(command);
 

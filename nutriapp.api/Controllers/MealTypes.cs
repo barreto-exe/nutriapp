@@ -9,6 +9,8 @@ public class MealTypes(IMediator mediator) : MyControllerBase(mediator)
     [HttpPost]
     public async Task<IActionResult> CreateMealType(CreateMealTypeCommand command)
     {
+        command.User = Convert.ToInt32(GetTokenClaimValue("id"));
+
         var response = await mediator.Send(command);
 
         if (!response.Success)
@@ -20,8 +22,10 @@ public class MealTypes(IMediator mediator) : MyControllerBase(mediator)
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetMealTypes(int userId)
+    public async Task<IActionResult> GetMealTypes()
     {
+        int userId = Convert.ToInt32(GetTokenClaimValue("id"));
+
         var command = new GetMealTypesCommand { User = userId };
         var response = await mediator.Send(command);
 
@@ -33,6 +37,8 @@ public class MealTypes(IMediator mediator) : MyControllerBase(mediator)
     [HttpPut]
     public async Task<IActionResult> UpdateMealType(UpdateMealTypeCommand command)
     {
+        command.User = Convert.ToInt32(GetTokenClaimValue("id"));
+
         var response = await mediator.Send(command);
 
         if (!response.Success)

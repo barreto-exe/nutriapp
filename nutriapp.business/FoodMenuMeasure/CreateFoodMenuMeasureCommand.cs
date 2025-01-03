@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using System.Text.Json.Serialization;
 
 namespace nutriapp.business.FoodMenuMeasure;
 
 public class CreateFoodMenuMeasureCommand : IRequest<CreateFoodMenuMeasureResponse>
 {
+    [JsonIgnore]
     public int User { get; set; }
     public int Food { get; set; }
     public double Quantity { get; set; }
