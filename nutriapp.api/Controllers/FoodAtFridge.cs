@@ -18,10 +18,10 @@ public class FoodAtFridge(IMediator mediator) : MyControllerBase(mediator)
 
         if (!response.Success)
         {
-            return BadRequest(response);
+            return BadRequest(ControllerStandardResponse(response));
         }
 
-        return Ok(response);
+        return Ok(ControllerStandardResponse(response));
     }
 
     [HttpGet]
@@ -33,6 +33,6 @@ public class FoodAtFridge(IMediator mediator) : MyControllerBase(mediator)
 
         if (response == null || !response.Success) return NotFound();
 
-        return Ok(response);
+        return Ok(ControllerStandardResponse(response));
     }
 }

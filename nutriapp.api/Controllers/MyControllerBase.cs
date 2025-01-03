@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nutriapp.business.Base;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace nutriapp.api.Controllers;
@@ -15,6 +16,16 @@ public class MyControllerBase : ControllerBase
     public MyControllerBase(IMediator mediator)
     {
         this.mediator = mediator;
+    }
+
+    protected object ControllerStandardResponse(dynamic data)
+    {
+        return new
+        {
+            Data = data,
+            data.Message,
+            data.Success
+        };
     }
 
     protected string GetTokenClaimValue(string key)

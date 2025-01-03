@@ -17,10 +17,10 @@ public class Auth(IMediator mediator) : MyControllerBase(mediator)
 
         if (!response.Success)
         {
-            return BadRequest(response);
+            return BadRequest(ControllerStandardResponse(response));
         }
 
-        return Ok(response);
+        return Ok(ControllerStandardResponse(response));
     }
 
 
@@ -33,9 +33,9 @@ public class Auth(IMediator mediator) : MyControllerBase(mediator)
 
         if (!response.Success)
         {
-            return BadRequest(response);
+            return BadRequest(ControllerStandardResponse(response));
         }
 
-        return Ok(response);
+        return Ok(ControllerStandardResponse(response));
     }
 }
